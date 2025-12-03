@@ -1,3 +1,8 @@
+---
+title: Projeto S2C2
+layout: home
+---
+
 # INTRODUÇÃO {#sec:01}
 
 O estudo de soluções para implementar uma rede de comunicação que
