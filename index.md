@@ -3,7 +3,7 @@ title: Projeto S2C2
 layout: home
 ---
 
-# INTRODUÇÃO {#sec:01}
+# INTRODUÇÃO {#sec-01}
 
 O estudo de soluções para implementar uma rede de comunicação que
 suporte as aplicações da Família de Aplicativos de Comando e Controle da
@@ -34,7 +34,7 @@ agentes que representam as tropas no ambiente simulado que suportam as
 aplicações C2. Além disso, o relatório apresenta o manual de uso da
 ferramenta desenvolvida.
 
-# VISÃO ARQUITETURAL {#sec:02}
+# VISÃO ARQUITETURAL {#sec-02}
 
 Para simular um ambiente de campo de batalha realista, foi adotada uma
 abordagem integrada entre um Simulador de Sistema Multiagente (MAS) e um
@@ -133,7 +133,7 @@ subseções.
   Utilizado para exibir, na forma de gráficos, os indicadores das
   simulações executadas pelo sistema.
 
-# MODELAGEM DO SISTEMA {#sec:03}
+# MODELAGEM DO SISTEMA {#sec-03}
 
 Nesta seção, são explorados com mais detalhes os componentes
 apresentados na Seção 2, com o objetivo de detalhar seus principais
@@ -437,7 +437,7 @@ garantindo que o simulador seja instanciado com uma grade otimizada para
 o nível de granularidade desejado, permitindo assim que a simulação seja
 executada com fluidez.
 
-# MODELOS DE FLUXO DO SISTEMA {#sec:04}
+# MODELOS DE FLUXO DO SISTEMA {#sec-04}
 
 A execução do sistema comporta uma série de modelos de fluxo, que vão
 desde o fluxo da aplicação como um todo até a modelagem do comportamento
@@ -448,7 +448,7 @@ C2 Blue Force Tracking (*BFT*), o sistema desenvolvido é genérico para
 qualquer aplicação C2 e essa aplicação em especifico é usada apenas para
 facilitar a compreensão de como o sistema funciona de forma geral.
 
-## Modelagem do Fluxo da aplicação {#sec:04.1}
+## Modelagem do Fluxo da aplicação {#sec-04.1}
 
 O modelo de fluxo da aplicação está detalhado na
 Figura [8](#fig:8.simulatio.flow){reference-type="ref"
@@ -506,7 +506,7 @@ id="fig:8.simulatio.flow" data-label="fig:8.simulatio.flow"></span></p>
 cenários de simulação</figcaption>
 </figure>
 
-## Modelagem do Sistema Multiagente {#sec:04.2}
+## Modelagem do Sistema Multiagente {#sec-04.2}
 
 O cenário de simulação do sistema consiste em um mapa de batalha 2D de
 tamanho $N \times M$, composto por uma grade $p_{x,y}$ de caminhos
@@ -553,7 +553,7 @@ $$\begin{equation}
 Por requisição dos stakeholders, a função de custo não leva em conta
 nuances de decisão comportamental humana, pois o foco está em resolver
 questões de comunicação, especialmente situações de fogo amigo (seção
-[5.2](#sec:04.3){reference-type="ref" reference="sec:04.3"}). Portanto,
+[5.2](#sec-04.3){reference-type="ref" reference="sec:04.3"}). Portanto,
 a equação [\[cost_function\]](#cost_function){reference-type="ref"
 reference="cost_function"},que calcula a função de custo $c$ para
 qualquer agente $a_{i}$ em direção ao objetivo $g$, tem como objetivo
@@ -581,7 +581,7 @@ atual $(x_{a_{i}}, y_{a_{i}})$ e o patch do objetivo $g$, ou mais
 precisamente $(x_{g}, y_{g})$. Assim,
 $h(a_{i})=\sqrt{(x_{a_{i}} - x_{g})^2 + (y_{a_{i}} - y_{g})^2}$.
 
-### Modelagem do Estado dos Agentes Sob Staque {#sec:04.1.1}
+### Modelagem do Estado dos Agentes Sob Staque {#sec-04.1.1}
 
 Ainda que as unidades aliadas e inimigas representadas por cada
 simulação sejam inicialmente representadas como hexágonos de cor azul ou
@@ -675,7 +675,7 @@ linha reta; ainda assim, continua essencial. Falhas nesse reconhecimento
 --- podem gerar incidentes de fogo amigo, que são discutidos na próxima
 seção.
 
-# APLICAÇÕES DE S2C2 {#sec:05}
+# APLICAÇÕES DE S2C2 {#sec-05}
 
 Para analisar o desempenho do simulador, desenvolveram-se diferentes
 aplicações de S2C2 ao longo do projeto. Estas aplicaçãoes e os
@@ -738,7 +738,7 @@ conjunto Colinas.
 
 - round_id: tipo inteiro. Indica o número da rodada atual.
 
-## Modelagem de ocorrências de Fogo Amigo {#sec:04.3}
+## Modelagem de ocorrências de Fogo Amigo {#sec-04.3}
 
 A comunicação é um recurso vital para os soldados. O reconhecimento
 visual permite que as unidades militares, dentro de uma distância reta
@@ -960,7 +960,7 @@ aplicação BFT gera um relatório contendo as estatísticas de fogo amigo
 do cenário de simulação executado, de modo a validar o impacto das
 alterações no cenário de simulação no contexto do fogo amigo.
 
-# CENÁRIOS DE TESTES E RESULTADOS {#sec:06}
+# CENÁRIOS DE TESTES E RESULTADOS {#sec-06}
 
 Ao longo do projeto, diferentes cenários de simulação foram
 desenvolvidos para representar as diversas necessidades apresentadas
@@ -1142,7 +1142,7 @@ na hierarquia de comando, conforme ilustrado na Figura
 
 ## Cenário de Simulação BRAVO (Extensão Projeto S2C2)
 
-# PUBLICAÇÕES GERADAS {#sec:07}
+# PUBLICAÇÕES GERADAS {#sec-07}
 
 - CARVALHO, Leonardo Filipe Batista Silva de; DE SOUZA, Vitor Simon;
   BONATTO, Alisson Nunes; PEREZ, Thales Junqueira Albergaria Moraes; DE
@@ -1192,7 +1192,7 @@ na hierarquia de comando, conforme ilustrado na Figura
   DATA SCIENCE, TECHNOLOGY AND APPLICATIONS, 12., 2023, Rome.
   Proceedings\... Rome, 2023. p. 390.
 
-# CONSIDERAÇÕES FINAIS {#sec:conclusion}
+# CONSIDERAÇÕES FINAIS {#sec:sec-08}
 
 Este relatório apresenta o simulador desenvolvido no projeto S2C2,
 visando melhorar o processo de desenvolvimento de sistema e aplicativos
@@ -1202,7 +1202,7 @@ permitindo testar protocolos de comunicação e sistemas táticos em
 ambientes simulados.
 
 Além do simulador apresentado, também foram desenvolvidas as aplicações
-indicadas na Seção [5](#sec:05){reference-type="ref"
+indicadas na Seção [5](#sec-05){reference-type="ref"
 reference="sec:05"}, todas, visando a diminuição dos incidentes de
 fratricídio nos cenários de campo de batalha. Essas aplicações,
 constituiem os recursos que permitiram a restagem das *features*
@@ -1216,8 +1216,8 @@ trabalho:
   exercícios militares em ambientes simulados;
 
 - Adequação à doutrina: Conforme exposto na
-  subseção [4.2](#sec:04.2){reference-type="ref" reference="sec:04.2"} e
-  [5.2](#sec:04.3){reference-type="ref" reference="sec:04.3"}, o sistema
+  subseção [4.2](#sec-04.2){reference-type="ref" reference="sec:04.2"} e
+  [5.2](#sec-04.3){reference-type="ref" reference="sec:04.3"}, o sistema
   desenvolvido buscou representar com maior fidelidade a doutrina
   militar, desenvolvendo e implementando comportamentos relacionados à
   exercícios e operações militares;

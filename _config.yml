@@ -10,3 +10,21 @@ aux_links:
 # adiciona seu CSS customizado
 just_the_docs:
   css: "assets/css/custom.css"
+
+nav_external_links:
+  - title: "INTRODUÇÃO"
+    url: "/#sec-01"
+  - title: "VISÃO ARQUITETURAL"
+    url: "/#sec-02"
+  - title: "MODELAGEM DO SISTEMA"
+    url: "/#sec-03"
+  - title: "MODELOS DE FLUXO DO SISTEMA"
+    url: "/#sec-04"
+  - title: "APLICAÇÕES DE S2C2"
+    url: "/#sec-05"
+  - title: "CENÁRIOS DE TESTES E RESULTADOS"
+    url: "/#sec-06"
+  - title: "PUBLICAÇÕES GERADAS"
+    url: "/#sec-07"
+  - title: "CONSIDERAÇÕES FINAIS"
+    url: "/#sec-08"    
