@@ -1,10 +1,9 @@
-.site-logo img {
-    max-height: 200px;
-}
-
-.site-logo {
+.side-bar .site-logo {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.side-bar .site-logo img {
+    max-height: 200px;
+}
