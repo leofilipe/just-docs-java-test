@@ -8,7 +8,7 @@ url: https://leofilipe.github.io/just-docs-java-test/
 just_the_docs:
   css: "assets/css/custom.css"
 
-nav:
+nav_external_links:
   - title: "INTRODUÇÃO"
     url: "#sec-01"
   - title: "VISÃO ARQUITETURAL"
