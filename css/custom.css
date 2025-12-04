@@ -1,9 +1,16 @@
+/* Centraliza o conteúdo do cabeçalho da sidebar */
+.side-bar .site-header {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* Centraliza o logo dentro dele */
 .side-bar .site-logo {
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
+/* Ajuste opcional do tamanho */
 .side-bar .site-logo img {
     max-height: 200px;
 }
