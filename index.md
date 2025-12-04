@@ -1,7 +1,6 @@
 ---
 title: Projeto S2C2
 layout: home
-nav_toc: _data/toc.yml
 ---
 
 # INTRODUÇÃO {#sec-01}
