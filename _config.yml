@@ -4,6 +4,16 @@ theme: just-the-docs
 
 url: https://leofilipe.github.io/just-docs-java-test/
 
-# CSS customizado
+# Configurações do Just the Docs
 just_the_docs:
+  # CSS customizado
   css: "assets/css/custom.css"
+  
+# Configuração de Coleções:
+# Isso garante que a navegação lateral não seja gerada automaticamente 
+# a partir de páginas soltas, pois usaremos o TOC customizado.
+collections:
+  docs:
+    permalink: /:path/
+    toc: true
+    nav_exclude: true # <-- Garante que páginas Markdown não virem itens de nav
