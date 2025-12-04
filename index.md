@@ -1,6 +1,8 @@
 ---
 title: Projeto S2C2
 layout: home
+nav_order: 1
+has_children: true  # <--- Adicionado
 ---
 
 # INTRODUÇÃO {#sec-01}
