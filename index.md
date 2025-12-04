@@ -51,7 +51,7 @@ Simulação de Comando e Controle* e as relações estáticas compartilhadas
 entre eles.
 
 <figure id="fig:1.arquitetura.s2c2" data-latex-placement="!h!t">
-<p><img src="assets/img/fig1.arquiteturaS2C2.2024.png" alt="image" /> <span
+<p><img src="assets/images/fig1.arquiteturaS2C2.2024.png" alt="image" /> <span
 id="fig:1.arquitetura.s2c2"
 data-label="fig:1.arquitetura.s2c2"></span></p>
 <p>Fonte: os autores.</p>
@@ -163,7 +163,7 @@ simulados. O que determina diretamente as configurações e ações que o
 sistema executará.
 
 <figure id="fig:2.componentes.owl" data-latex-placement="!h!t">
-<p><img src="assets/img/fig2.componente.OWL.e.relacoes.png" style="width:80.0%"
+<p><img src="assets/images/fig2.componente.OWL.e.relacoes.png" style="width:80.0%"
 alt="image" /> <span id="fig:2.componentes.owl"
 data-label="fig:2.componentes.owl"></span></p>
 <p>Fonte: os autores.</p>
@@ -229,7 +229,7 @@ Mininet-WiFi é um emulador de redes virtuais e conexões sem fio
 [@lantz2010network].
 
 <figure id="fig:3.emusim" data-latex-placement="!h!t">
-<p><img src="assets/img/fig3.componente.emusim.png" style="width:50.0%"
+<p><img src="assets/images/fig3.componente.emusim.png" style="width:50.0%"
 alt="image" /> <span id="fig:3.emusim"
 data-label="fig:3.emusim"></span></p>
 <p>Fonte: os autores.</p>
@@ -364,7 +364,7 @@ mapas:
 - Butiá
 
 <figure id="fig:dropdown" data-latex-placement="!h!t">
-<p><img src="assets/img/fig11.mapas_dropdown.jpeg" style="width:80.0%"
+<p><img src="assets/images/fig11.mapas_dropdown.jpeg" style="width:80.0%"
 alt="image" /> <span id="fig:dropdown"
 data-label="fig:dropdown"></span></p>
 <p>Fonte: os autores.</p>
@@ -389,7 +389,7 @@ reference="fig:mapa_netlogo"} e Figura
     a imagem.
 
 <figure id="fig:mapa_netlogo" data-latex-placement="!h!t">
-<p><img src="assets/img/fig12.mapa_simulação.jpeg" style="width:80.0%"
+<p><img src="assets/images/fig12.mapa_simulação.jpeg" style="width:80.0%"
 alt="image" /> <span id="fig:mapa_netlogo"
 data-label="fig:mapa_netlogo"></span></p>
 <p>Fonte: os autores.</p>
@@ -397,7 +397,7 @@ data-label="fig:mapa_netlogo"></span></p>
 </figure>
 
 <figure id="fig:mapa_png" data-latex-placement="!h!t">
-<p><img src="assets/img/fig13.mapa_PNG.jpeg" style="width:80.0%" alt="image" />
+<p><img src="assets/images/fig13.mapa_PNG.jpeg" style="width:80.0%" alt="image" />
 <span id="fig:mapa_png" data-label="fig:mapa_png"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Simulação com mapa de Imagem PNG</figcaption>
@@ -420,7 +420,7 @@ na Figura [7](#fig:patch_slider){reference-type="ref"
 reference="fig:patch_slider"}.
 
 <figure id="fig:patch_slider" data-latex-placement="!h!t">
-<p><img src="assets/img/fig14.slider_patch.jpeg" style="width:80.0%"
+<p><img src="assets/images/fig14.slider_patch.jpeg" style="width:80.0%"
 alt="image" /> <span id="fig:patch_slider"
 data-label="fig:patch_slider"></span></p>
 <p>Fonte: os autores.</p>
@@ -499,7 +499,7 @@ reference="fig:8.simulatio.flow"}, sendo detalhado a seguir.
     finalizando a simulação.
 
 <figure id="fig:8.simulatio.flow" data-latex-placement="!ht">
-<p><img src="assets/img/fig8.simulation.flow.png" alt="image" /> <span
+<p><img src="assets/images/fig8.simulation.flow.png" alt="image" /> <span
 id="fig:8.simulatio.flow" data-label="fig:8.simulatio.flow"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Diagrama de sequência da aplicação para a execução de
@@ -529,7 +529,7 @@ inimigos, simbolizados por hexágonos vermelhos, que se movem na direção
 oposta, em direção à base aliada.
 
 <figure id="fig:4.simulation" data-latex-placement="ht">
-<p><img src="assets/img/fig4.butiaSimulation.jpeg" style="width:60.0%"
+<p><img src="assets/images/fig4.butiaSimulation.jpeg" style="width:60.0%"
 alt="image" /> <span id="fig:4.simulation"
 data-label="fig:4.simulation"></span></p>
 <p>Fonte: os autores.</p>
@@ -624,7 +624,7 @@ além de *Morto*, vai ao encontro da Convenção de Genebra, que protege
 indivíduos nesse estado contra novos danos.
 
 <figure id="fig:5.fsm" data-latex-placement="ht">
-<p><img src="assets/img/fig5.fsm.png" style="width:80.0%" alt="image" /> <span
+<p><img src="assets/images/fig5.fsm.png" style="width:80.0%" alt="image" /> <span
 id="fig:5.fsm" data-label="fig:5.fsm"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>FSM para os estados dos agentes da aplicação sob
@@ -771,7 +771,7 @@ sequência da Figura [11](#fig:9.diagrama.bft){reference-type="ref"
 reference="fig:9.diagrama.bft"}.
 
 <figure id="fig:9.diagrama.bft" data-latex-placement="ht">
-<p><img src="assets/img/fig9.bft.flow.png" alt="image" /> <span
+<p><img src="assets/images/fig9.bft.flow.png" alt="image" /> <span
 id="fig:9.diagrama.bft" data-label="fig:9.diagrama.bft"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Diagrama de sequência da aplicação BFT.</figcaption>
@@ -809,7 +809,7 @@ questão), ou a perda completa de comunicação (reresentada pela ausência
 de linha conectando os agentes).
 
 <figure id="fig:6.simulation.lines" data-latex-placement="!h!t">
-<p><img src="assets/img/fig6.simulation.link_lines.png" style="width:50.0%"
+<p><img src="assets/images/fig6.simulation.link_lines.png" style="width:50.0%"
 alt="image" /> <span id="fig:6.simulation.lines"
 data-label="fig:6.simulation.lines"></span></p>
 <p>Fonte: os autores.</p>
@@ -838,7 +838,7 @@ como um possível atacante direcionado a outros agentes. Contudo, tanto
 unidades inimigas quanto aliadas estão sujeitas a erros de disparo.
 
 <figure id="fig:7.friendly.fire" data-latex-placement="!h!t">
-<p><img src="assets/img/fig7.friendly_fire.png" alt="image" /> <span
+<p><img src="assets/images/fig7.friendly_fire.png" alt="image" /> <span
 id="fig:7.friendly.fire" data-label="fig:7.friendly.fire"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Fluxo de ataque e fogo amigo entre unidades
@@ -890,7 +890,7 @@ BFT, ilustrados na Figura [14](#fig:a.diagrama.bft){reference-type="ref"
 reference="fig:a.diagrama.bft"}.
 
 <figure id="fig:a.diagrama.bft" data-latex-placement="ht">
-<p><img src="assets/img/fig.a.BFT.application.png" alt="image" /> <span
+<p><img src="assets/images/fig.a.BFT.application.png" alt="image" /> <span
 id="fig:a.diagrama.bft" data-label="fig:a.diagrama.bft"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Diagrama de Componentes da Aplicação Blue Force
@@ -947,7 +947,7 @@ Figura [1](#fig:1.arquitetura.s2c2){reference-type="ref"
 reference="fig:1.arquitetura.s2c2"}.
 
 <figure id="fig:b.bft" data-latex-placement="ht">
-<p><img src="assets/img/fig.b.BFT.Database.Report.png" alt="image" /> <span
+<p><img src="assets/images/fig.b.BFT.Database.Report.png" alt="image" /> <span
 id="fig:b.bft" data-label="fig:b.bft"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Interação do BFT com Simulador S2C2.</figcaption>
@@ -972,7 +972,7 @@ reference="fig:10c.simulation"} mostram os computadores do laboratório
 S2C2 executando alguns desses diferentes cenários.
 
 <figure id="fig:10b.simulation" data-latex-placement="!ht">
-<p><img src="assets/img/simulacoes-no-lab.png" style="width:80.0%"
+<p><img src="assets/images/simulacoes-no-lab.png" style="width:80.0%"
 alt="image" /> <span id="fig:10b.simulation"
 data-label="fig:10b.simulation"></span></p>
 <p>Fonte: os autores.</p>
@@ -981,7 +981,7 @@ S2C2</figcaption>
 </figure>
 
 <figure id="fig:10c.simulation" data-latex-placement="!ht">
-<p><img src="assets/img/fig.scenario4.jpeg" style="width:55.0%" alt="image" />
+<p><img src="assets/images/fig.scenario4.jpeg" style="width:55.0%" alt="image" />
 <span id="fig:10c.simulation"
 data-label="fig:10c.simulation"></span></p>
 <p>Fonte: os autores.</p>
@@ -1004,7 +1004,7 @@ reference="fig:10.simulation"}. Esse cenário consiste em 21 unidades
 aliadas de soldados a pé, divididas em três grupos de combate.
 
 <figure id="fig:10.simulation" data-latex-placement="!ht">
-<p><img src="assets/img/fig.scenario3.png" style="width:55.0%" alt="image" />
+<p><img src="assets/images/fig.scenario3.png" style="width:55.0%" alt="image" />
 <span id="fig:10.simulation" data-label="fig:10.simulation"></span></p>
 <p>Fonte: os autores.</p>
 <figcaption>Simulação de ataque sob análise.</figcaption>
@@ -1049,7 +1049,7 @@ cenários de simulação, a fim de reduzir a diferença entre simulação e
 realidade.
 
 <figure id="fig:11.ff_progression" data-latex-placement="h!t!">
-<img src="assets/img/fig10.simulation_data_chart_v5.png"
+<img src="assets/images/fig10.simulation_data_chart_v5.png"
 style="width:100.0%" />
 <figcaption>Evolução da taxa de fogo amigo com a melhoria na comunicação
 do BFT.</figcaption>
@@ -1114,7 +1114,7 @@ azul, os logs das estações GCB exibidos no prompt de comando e o mapa da
 aplicação GCB em operação. Neste cenário, cinco estações são simuladas.
 
 <figure id="fig:S2C2-CGB01" data-latex-placement="!ht">
-<img src="assets/img/S2C2-GCB-02.png" />
+<img src="assets/images/S2C2-GCB-02.png" />
 <figcaption>Inicialização das estações GCB com o cenário de
 simulação.</figcaption>
 </figure>
@@ -1125,7 +1125,7 @@ de batalha, que é automaticamente identificado como inimigo pelos demais
 devido à ausência de informações sobre ele.
 
 <figure id="fig:S2C2-CGB02" data-latex-placement="!ht">
-<img src="assets/img/S2C2-GCB-04.png" />
+<img src="assets/images/S2C2-GCB-04.png" />
 <figcaption>Inserção de novo nó no campo de batalha e resposta dos
 outros nós da simulação.</figcaption>
 </figure>
@@ -1136,7 +1136,7 @@ na hierarquia de comando, conforme ilustrado na Figura
 [22](#fig:S2C2-CGB03){reference-type="ref" reference="fig:S2C2-CGB03"}.
 
 <figure id="fig:S2C2-CGB03" data-latex-placement="!ht">
-<img src="assets/img/S2C2-GCB-06.png" />
+<img src="assets/images/S2C2-GCB-06.png" />
 <figcaption>Troca de mensagens bem-sucedida entre os nós.</figcaption>
 </figure>
 
