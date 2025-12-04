@@ -1,0 +1,4 @@
+/* Redimensiona o logo no Just-the-Docs */
+.site-logo img {
+    max-height: 120px;  /* ajuste como quiser */
+}
