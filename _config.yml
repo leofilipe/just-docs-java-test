@@ -4,18 +4,18 @@ title: "Projeto S2C2"
 logo: "/assets/images/logos2c2.png"
 theme: just-the-docs
 
-# IMPORTANTE: A URL deve ser a RAIZ do seu domínio de usuário/organização
+# URL raiz do GitHub Pages do usuário
 url: "https://leofilipe.github.io"
 
-# IMPORTANTE: O baseurl deve ser o nome do seu repositório,
-# começando com barra (/) e SEM barra no final
+# Nome do repositório
 baseurl: "/just-docs-java-test"
 
 # CSS customizado
 just_the_docs:
   css: "assets/css/custom.css"
-  
- nav_external_links:
+
+# LINKS NO TOPO (opcional)
+nav_external_links:
   - title: "INTRODUÇÃO"
     url: "{{ site.baseurl }}/#sec-01"
   - title: "VISÃO ARQUITETURAL"
