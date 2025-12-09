@@ -370,4 +370,6 @@ Como continuidade, prevê-se ampliar o simulador para interação com a Família
 
 Também está prevista a adaptação do **Blue Force Tracking (BFT)** para execução em contêineres controlados pelo Emulador de Rede, onde cada contêiner instanciará os módulos `Client` e `Server` utilizando sua pilha de rede isolada para comunicação.
 
+<!--
 Por fim, o Apêndice [[appen:a]](#appen:a) apresenta o manual de operação do simulador, e o Apêndice [[appen:b]](#appen:b) contém o relatório de um cenário executando o BFT.
+-->
