@@ -5,437 +5,82 @@ layout: home
 
 # INTRODUÇÃO {#sec-01}
 
-O estudo de soluções para implementar uma rede de comunicação que
-suporte as aplicações da Família de Aplicativos de Comando e Controle da
-Força Terrestre (FAC2FTer) oferece diversas oportunidades de exploração
-do espaço de projeto visando o desenvolvimento de protocolos eficientes
-para comunicação de dados entre tropas em diferentes cenários. Estejam
-elas em movimento, estacionadas ou em postos de comando tático, tais
-soluções devem representar de maneira realista o objeto do problema,
-como por exemplo, a movimentação ou o posicionamento das tropas em
-cenário operacional.
+O desenvolvimento de uma rede de comunicação capaz de atender às necessidades das aplicações da Família de Aplicativos de Comando e Controle da Força Terrestre (FAC2FTer) envolve explorar diferentes alternativas de projeto para garantir eficiência na troca de dados entre tropas em variados cenários operacionais. Essas soluções devem representar com fidelidade o contexto militar, incluindo movimentação e posicionamento de unidades.
 
-O avanço das aplicações de comando e controle (C2) da FAC2FTer, aliado à
-intenção do Exército Brasileiro de adquirir rádios táticos para diversas
-unidades, destaca a necessidade de aprimorar protocolos e
-funcionalidades. Esse esforço também integra o projeto de Rádio Definido
-por Software (RDS), buscando fornecer às tropas capacidades avançadas de
-comunicação. Simulações que reproduzem movimentos de tropas e o fluxo de
-comunicação típico de operações militares são ferramentas essenciais
-para o desenvolvimento e melhoria das aplicações C2, proporcionando
-maior eficiência em operações terrestres.
+Com a evolução das aplicações de comando e controle e os investimentos do Exército Brasileiro em novos rádios táticos e no projeto de Rádio Definido por Software (RDS), torna-se essencial aprimorar protocolos e funcionalidades que suportem comunicações mais robustas. Nesse contexto, simulações que reproduzem o comportamento das tropas e o fluxo típico de informações em operações militares tornam-se ferramentas fundamentais para orientar o desenvolvimento dessas capacidades.
 
-Este documento apresenta a visão do Sistema de Simulação no projeto
-Sistema de Sistemas de Comando e Controle (S2C2), detalhando os
-componentes do modelo arquitetural desenvolvido e o manual de uso da
-ferramenta criada. Portanto, seu foco está no papel dos componentes
-relacionados à simulação da rede de comunicação e ao comportamento dos
-agentes que representam as tropas no ambiente simulado que suportam as
-aplicações C2. Além disso, o relatório apresenta o manual de uso da
-ferramenta desenvolvida.
+Este documento apresenta a visão geral do Sistema de Simulação no âmbito do projeto Sistema de Sistemas de Comando e Controle (S2C2), destacando sua arquitetura, seus principais componentes e o manual de utilização da ferramenta. O foco está nos módulos responsáveis pela simulação da rede de comunicação e pelo comportamento dos agentes que representam as tropas no ambiente simulado, bem como nas orientações para uso da solução desenvolvida.
 
 # VISÃO ARQUITETURAL {#sec-02}
 
-Para simular um ambiente de campo de batalha realista, foi adotada uma
-abordagem integrada entre um Simulador de Sistema Multiagente (MAS) e um
-Emulador de Rede. Essa integração permitiu representar tanto os
-comportamentos realistas das tropas quanto os problemas de
-interoperabilidade que podem ocorrer nas comunicações nesse tipo de
-cenário.
-
-A estrutura geral da solução proposta é apresentada no diagrama de
-componentes da Figura [1](#fig:1.arquitetura.s2c2){reference-type="ref"
-reference="fig:1.arquitetura.s2c2"}. O diagrama ilustra os componentes
-do sistema denominado *S2C2 EmuSim -- Configuração e Orquestração de
-Simulação de Comando e Controle* e as relações estáticas compartilhadas
-entre eles.
-
-<figure id="fig:1.arquitetura.s2c2" data-latex-placement="!h!t">
-<p><img src="assets/images/fig1.arquiteturaS2C2.2024.png" alt="image" /> <span
-id="fig:1.arquitetura.s2c2"
-data-label="fig:1.arquitetura.s2c2"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>EmuSim - Orquestrador e Configurador de Simulação de Comando
-e Controle.</figcaption>
-</figure>
-
-Os componentes *Simulador MAS* e *Emulador de Rede* representam,
-respectivamente, as ferramentas de simulação de sistemas multiagente e
-de emulação de redes utilizadas nesta pesquisa. A execução coordenada e
-sincronizada dessas duas ferramentas, em formato de co-simulação
-[@gomes2018co], é essencial ao cenário militar estudado, sendo
-orquestrada pelo componente *EmuSim*. A descrição objetiva desses
-componentes é apresentada a seguir e detalhada na Seção 3 e suas
-subseções.
-
-- GUI: componente de inicialização do sistema. Comporta a interface de
-  usuário.
-
-- S2C2: componente lógico que intermedia as requisições da interface
-  gráfica. Comporta as funções de criar e carregar cenários de simulação
-  por meio de chamadas a outros componentes.
-
-- OWL IME S2C2 Base: componente externo ao sistema, porém essencial ao
-  seu funcionamento. Define um conjunto de regras da doutrina militar em
-  formato OWL que são a base para os parâmetros aceitos pelas simulações
-  executadas pelo sistema.
-
-- OWL Manager: componente agregador das operações de OWL (Ontology Web
-  Language), uma ontologia de domínio usada para representar entidades,
-  indivíduos, categorias, inferências, atributos e relações, ao mesmo
-  tempo em que permite verificar a consistência lógica entre as
-  entidades simuladas e inferir regras e restrições do cenário.
-
-  - OWL Create Instance: cria instâncias de dados OWL com cenários de
-    simulação confingurados na interface do sistema. Um cenário de
-    simulação define, por exemplo, o número de agentes em uma operação,
-    a distribuição desses agentes em Organizações Militares (OM), se os
-    agentes estão embarcados ou não em plataformas, entre outras
-    especificações do cenário militar.
-
-  - OWL Update Instance: atualiza as instâncias de dados OWL de um
-    cenário de simulação previamente criado, de modo que o operador
-    possa editar novos cenários a partir de cenários existentes.
-
-- Parameters Manager: componente para a gerência dos parâmetros da
-  simulação que não são específicos da doutrina definica pelo OWL (e.g.,
-  seleção do mapa, exibir ou não exibir a interface gráfica durante a
-  simulação, batch de simulação). É também responsável por realizar a
-  chamada ao orquestrador da aplicação com os parâmetros da simulação.
-
-- EmuSim: orquestrador responsável por gerenciar a execução do cenário
-  de simulação. Este componente é essencialmente o núcleo do sistema.
-
-- Simulador MAS: Simulador de Sistema Multiagente utilizado para simular
-  tropas e o ambiente de campo de batalha do cenário militar analisado.
-  Ele inclui algoritmos de tomada de decisão e busca de caminhos para
-  escolher rotas e ações que levem ao objetivo.
-
-- Emulador de Rede: Programa utilizado para emular a comunicação entre
-  os agentes, bem como executar as aplicações de C2 e FAC2FTer,
-  permitindo a troca de dados entre as tropas militares simuladas pelo
-  Simulador MAS.
-
-- Data Manager: componente agregador das operações de modelagem de dados
-  e persistência de dados.
-
-  - Database: banco de dados para armazenar os dados coletados de
-    aplicações e estatísticas de rede dos cenários de simulação.
-
-  - Data Model: componente para especificar o modelo de dados das
-    aplicações que irão interagir com simulador.
-
-  - Persistence Manager: componente para a gerência da persistência de
-    dados da aplicação. Comunica-se com OWL Update instance para
-    atualizar dados das instâncias da simulação e com Data Model.
-
-- Grafana: API para observabilidade e visualização de métricas.
-  Utilizado para exibir, na forma de gráficos, os indicadores das
-  simulações executadas pelo sistema.
-
-# MODELAGEM DO SISTEMA {#sec-03}
-
-Nesta seção, são explorados com mais detalhes os componentes
-apresentados na Seção 2, com o objetivo de detalhar seus principais
-subcomponentes, conexões e funcionamento.
-
-## Componentes GUI, S2C2 e OWL Manager {#subsec:3.1}
-
-A inicialização da aplicação ocorre por meio do componente *GUI*, que
-representa a interface de usuário do sistema. A partir dela, ocorrem as
-solicitações e respostas às funcionalidades do sistema. O componente
-*GUI* se comunica com o componente *S2C2*, que representa a parte lógica
-da aplicação que interage com interface do usuário, a fim de disparar as
-requisições solicitadas e prover para a interface o retorno dessas
-operações.
-
-O componente *OWL Manager*, destacado na Figura
-[2](#fig:2.componentes.owl){reference-type="ref"
-reference="fig:2.componentes.owl"} funciona como um agregador das
-operações de OWL, uma linguagem semântica projetada para representar
-conhecimentos sobre objetos e suas relações de forma detalhada
-[@hitzler2009owl]. No contexto do simulador, as informações
-proporcionadas pela *OWL IME S2C2 Base* compõem um componente externo à
-aplicação, disponibilizado pelo Instituto Militar de Engenharia (IME),
-no qual estão descritas as relações que a doutrina militar estabelecida
-pelo Exército Brasileiro impõe sobre a construção de cenários militares
-simulados. O que determina diretamente as configurações e ações que o
-sistema executará.
-
-<figure id="fig:2.componentes.owl" data-latex-placement="!h!t">
-<p><img src="assets/images/fig2.componente.OWL.e.relacoes.png" style="width:80.0%"
-alt="image" /> <span id="fig:2.componentes.owl"
-data-label="fig:2.componentes.owl"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Componentes OWL e suas relações.</figcaption>
-</figure>
-
-Por exemplo, é do OWL que se obtém as informações que caracterizam um
-agente do simulador multi-agente, como a identificação de uma unidade
-como soldado ou comandante, ou a hierarquia de comunicação permitida
-entre as unidades. Cabe ainda ao OWL a configuração de parâmetros fixos,
-como o alcance dos dispositivos e, por consequência, a distância máxima
-entre quaisquer dois soldados da simulação em que a comunicação é
-possível.
-
-Esta base de referência é utilizada para instanciar os nós da aplicação
-por meio do componente *OWL Create Instance*, que converte os dados
-oriundos da base OWL em parâmetros da aplicação por meio do componente
-Parameters Manager. Sem estas informações, não é possível iniciar a
-aplicação. As operações de atualização das instâncias de OWL são
-realizadas pelo componente *OWL Update Instance*, sempre que há
-modificações nos dados das instâncias da simulação.
-
-Após a instanciação dos nós, os parâmetros da simulação são listados
-pelo componente Parameters Manager, que permite ainda a personalização
-dos mesmos dentro das restrições da doutrina militar, definidas em *OWL
-IME S2C2 Base*. Por sua vez, todo ato de personalização destes
-parâmetros ocasiona a atualização dos nós OWL e suas instâncias, por
-meio de OWL Update Instance, ficando salvos para uma próxima execução.
-Estes parâmetros incluem:
-
-- Mapa: ambiente da operação militar.
-
-- Organização Militar: formação das tropas (pelotão, esquadrão, equipe
-  de combate, etc.).
-
-- Tipo de Plataforma: tipo de tropa simulada (tropas a pé ou veículos
-  blindados).
-
-- Alcance dos Dispositivos de Comunicação: alcance funcional dos
-  dispositivos de comunicação.
-
-- Clima: condições climáticas para o cenário simulado (ensolarado ou
-  chuvoso), podendo afetar a visão, velocidade ou comunicação das
-  tropas.
-
-- Tamanho do Lote: número de execuções da simulação.
-
-- Algoritmo de Trajeto: priorização pelo caminho mais curto ou mais
-  rápido.
-
-- Posição Inicial das Tropas: posição inicial no cenário do mapa.
-
-## Componente EmuSim e suas relações {#subsec:3.2}
-
-O componente *EmuSim*, Figura [3](#fig:3.emusim){reference-type="ref"
-reference="fig:3.emusim"}, orquestra o funcionamento geral do Sistema
-S2C2. Consiste em um script Python que atua como uma ponte entre os
-eventos acionados pelo uso do sistema e as aplicações externas
-responsáveis por sua execução: o *Simulador MAS* (NetLogo) e o *Emulador
-de Redes* (Mininet-WiFi). O NetLogo é uma plataforma de modelagem
-multi-agente baseada em Java e Scala [@tisue1999center], enquanto o
-Mininet-WiFi é um emulador de redes virtuais e conexões sem fio
-[@lantz2010network].
-
-<figure id="fig:3.emusim" data-latex-placement="!h!t">
-<p><img src="assets/images/fig3.componente.emusim.png" style="width:50.0%"
-alt="image" /> <span id="fig:3.emusim"
-data-label="fig:3.emusim"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Componente EmuSim e suas relações</figcaption>
-</figure>
-
-Ao executar um cenário, dados como número de agentes, sua velocidade e
-outros parâmetros são providos a partir de *OWL IME S2C2 Base* via *OWL
-Create Instance* por meio de *Parameters Manager*. Durante a execução de
-um cenário, o *Simulador MAS*, NetLogo, gerencia aspectos operacionais
-da simulação, como definir o número de nós (agentes), seus objetivos
-primários, comportamentos em diferentes situações e ambiente. Já o
-*Emulador de Redes*, Mininet-WiFi, provê os componentes necessários para
-executar as aplicações de C2 em ambiente emulado, e os dispositivos de
-rede necessários para suportar a troca de dados entre as aplicações.
-
-O NetLogo é um ambiente de modelagem programável para múltiplos
-agentes[@tisue1999center]. É uma plataforma robusta e de código aberto,
-baseada na linguagem de programação Logo e implementada em Java e Scala.
-O Mininet-WiFi é um emulador leve e de código aberto, desenvolvido em
-Python, utilizado para criar redes virtuais realistas que operam com o
-mesmo kernel, switches e código de aplicação do computador
-[@lantz2010network], além de permitir conexões sem fio com pontos de
-acesso, comunicação ad hoc e redes mesh [@fontes2015mininet].
-
-Para sincronizar o NetLogo e o Mininet-WiFi, o EmuSim utiliza duas
-interfaces: *PyNetLogo* e *MN_Wifi*. A *PyNetLogo* é uma biblioteca
-Python que conecta o NetLogo a outros programas, permitindo a troca de
-mensagens. A *MN_Wifi* envia comandos ao Mininet-WiFi para atualizar
-dados das unidades emuladas e suas interfaces de rede.
-
-Visando um cenário realista, cada nó de tropa é executado como uma
-estação no Mininet-WiFi. O Mininet-WiFi utiliza namespaces do kernel do
-Linux para criar ambientes de execução altamente isolados e leves em
-cada nó (estações e Access Points). Isso garante que cada nó do
-Mininet-WiFi possua sua própria pilha de rede, tabela de rotas,
-endereços IP e conjunto de processos, completamente isolados tanto do
-sistema operacional do host quanto dos demais nós. Essa abordagem é
-crucial para simular cenários realistas onde as aplicações executadas em
-um nó não interferem nas operações ou estados de rede de outros nós.
-
-1.  **Isolamento Completo**: Cada nó opera em seu próprio namespace de
-    rede, permitindo que as aplicações de C2 (e.g., BFT, Bravo) sejam
-    executadas em um ambiente virtualmente separado, exatamente como se
-    estivessem em máquinas físicas distintas, mas utilizando os recursos
-    do host.
-
-2.  **Vantagem de Leveza**: A vantagem em relação aos contêineres Docker
-    é que os namespaces do Mininet-WiFi são mais leves e demandam menos
-    sobrecarga computacional. Eles se concentram primariamente no
-    isolamento do espaço de rede e dos processos, sem a necessidade de
-    empacotamento completo do sistema operacional ou uso de camadas de
-    abstração adicionais que os contêineres normalmente empregam. Isso
-    resulta em simulações de rede mais rápidas e que consomem menos
-    recursos.
-
-Com essa abordagem, o EmuSim consegue executar o software C2 real em um
-ambiente controlado, reproduzindo fielmente as condições de operação de
-um hardware dedicado, mas com a flexibilidade e o controle de uma
-simulação em rede.
-
-As mensagens do NetLogo passam primeiro pelo EmuSim via *PyNetLogo*,
-sendo então redirecionadas a nós emulados pelo Mininet-WiFi através da
-*MN_Wifi*. Após o processamento, o resultado retorna ao NetLogo pelo
-mesmo caminho, garantindo a integração e o funcionamento sincronizado.
-
-Ao final da execuçao do cenário, os dados da simulação são armazenados
-pelo componente Datamanager (e.g., dados de aplicação, métricas de
-rede).
-
-## Modelagem dos Mapas e Ambiente de Simulação {#subsec:3.3}
-
-A representação fidedigna do ambiente operacional é um componente
-crítico para a validade das simulações no S2C2. A modelagem dos mapas do
-sistema utiliza como base arquivos topográficos reais, em formato
-Shapefile (SHP), que detalham as características geográficas do terreno.
-
-A inserção de um novo cenário no sistema começa pela obtenção dos dados
-vetoriais brutos em repositórios oficiais, como o Banco de Dados
-Geográficos do Exército (BDGEx). Esses dados precisam ser
-pré-processados em um software com suporte a Sistemas de Informação
-Geográfica (SIG).
-
-Nesta pesquisa, utilizou-se o QGIS para filtrar e consolidar as camadas
-do mapa original, renomeando-as de acordo com os cinco rótulos padrão
-nativamente interpretados pelas simulações do NetLogo:
-
-- `morros_intrans1`: Áreas alagadas intransponíveis;
-
-- `morros_intrans2`: Terrenos intransponíveis;
-
-- `morros_trans1`: Campo aberto;
-
-- `morros_trans2`: Vegetação cultivada;
-
-- `morros_trans3`: Relevo acidentado parcialmente transponível (morros).
-
-A adição de novos mapas no sistema também exige:
-
-- Dimensão real do terreno (em km): Informação fundamental para o
-  cálculo da escala da grade, especificada no arquivo de texto
-  `map_size.txt`;
-
-- Imagem do mapa: Armazenada em formato PNG, utilizada no modo de
-  visualização estática do cenário.
-
-Por fim, a integração dos novos mapas à aplicação é realizada por meio
-de um arquivo de configuração que carrega os vetores do cenário e define
-os parâmetros de interpretação utilizados pelo NetLogo. Esse arquivo
-também ajusta a grade de acordo com o tamanho dos *patches* do ambiente
-de simulação e habilita a alternância entre a visualização do mapa de
-simulação e a imagem estática, conforme a escolha do usuário.
-
-Já a seleção dos cenários de simulação é feita por meio desse mesmo
-sistema de configuração, que oferece duas modalidades: (1) geração
-nativa da grade a partir dos Shapefiles, preservando a topografia
-detalhada; ou (2) importação de uma imagem estática (PNG) como plano de
-fundo. Ao adicionar um novo mapa, o sistema atualiza automaticamente o
-arquivo de configuração, permitindo alternar entre o carregamento
-vetorial ou a visualização da imagem.
-
-Através do componente GUI, o usuário pode selecionar o cenário
-geográfico desejado por meio de um menu *dropdown*, como mostrado na
-Figura [4](#fig:dropdown){reference-type="ref"
-reference="fig:dropdown"}. Atualmente, o sistema suporta os seguintes
-mapas:
-
-- Brasília
-
-- Litoral de Pelotas e Rio Grande
-
-- Butiá
-
-<figure id="fig:dropdown" data-latex-placement="!h!t">
-<p><img src="assets/images/fig11.mapas_dropdown.jpeg" style="width:80.0%"
-alt="image" /> <span id="fig:dropdown"
-data-label="fig:dropdown"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Dropdown para escolha dos mapas</figcaption>
-</figure>
-
-Após a seleção do mapa, as duas modalidades de execução mencionadas
-anteriormente comportam-se da seguinte maneira (Figura
-[5](#fig:mapa_netlogo){reference-type="ref"
-reference="fig:mapa_netlogo"} e Figura
-[6](#fig:mapa_png){reference-type="ref" reference="fig:mapa_png"}):
-
-1.  **Mapa de Simulação (Padrão):** Os agentes (unidades) interagem
-    diretamente com o grid de patches e suas propriedades topográficas.
-    O movimento, a linha de visão e a propagação do sinal de comunicação
-    são afetados pelas características de cada patch.
-
-2.  **Visualização sobre Imagem (PNG):** Alternativamente, a simulação
-    ocorre sobre a imagem estática do mapa (ex: imagem de satélite).
-    Nesta modalidade, a representação visual abstrai a interação
-    detalhada com a topografia do terreno, focando na movimentação sobre
-    a imagem.
-
-<figure id="fig:mapa_netlogo" data-latex-placement="!h!t">
-<p><img src="assets/images/fig12.mapa_simulação.jpeg" style="width:80.0%"
-alt="image" /> <span id="fig:mapa_netlogo"
-data-label="fig:mapa_netlogo"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Simulação com mapa gerado pelo Netlogo</figcaption>
-</figure>
-
-<figure id="fig:mapa_png" data-latex-placement="!h!t">
-<p><img src="assets/images/fig13.mapa_PNG.jpeg" style="width:80.0%" alt="image" />
-<span id="fig:mapa_png" data-label="fig:mapa_png"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Simulação com mapa de Imagem PNG</figcaption>
-</figure>
-
-Um desafio computacional significativo em simulações de larga escala é a
-**granularidade** do grid. Mapas extensos, quando representados por
-patches de tamanho muito reduzido (e.g., 1$\times$`<!-- -->`{=html}1
-metro), geram uma grade com elevado número de células. Isso aumenta
-exponencialmente o custo computacional, impactando severamente o
-desempenho do Simulador MAS, especialmente nos cálculos de rota do
-algoritmo $A^{*}$.
-
-Para mitigar este problema, o S2C2 implementa um mecanismo de ajuste de
-granularidade. Na tela de configuração de cenário (detalhada no Apêndice
-A), o usuário pode utilizar um controle deslizante (*slider*) para
-definir a dimensão de cada patch (e.g., de 1$\times$`<!-- -->`{=html}1
-metro até 50$\times$`<!-- -->`{=html}50 metros ou mais), como mostrado
-na Figura [7](#fig:patch_slider){reference-type="ref"
-reference="fig:patch_slider"}.
-
-<figure id="fig:patch_slider" data-latex-placement="!h!t">
-<p><img src="assets/images/fig14.slider_patch.jpeg" style="width:80.0%"
-alt="image" /> <span id="fig:patch_slider"
-data-label="fig:patch_slider"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Slider de tamanho de patches</figcaption>
-</figure>
-
-Com base em dois parâmetros --- o tamanho real do mapa selecionado (em
-metros) e o tamanho do patch definido pelo usuário ---, o sistema
-realiza automaticamente um cálculo de proporcionalidade para determinar
-as dimensões totais do grid (largura e altura em número de patches).
-
-Esse resultado atualiza dinamicamente o arquivo de configuração do mapa,
-garantindo que o simulador seja instanciado com uma grade otimizada para
-o nível de granularidade desejado, permitindo assim que a simulação seja
-executada com fluidez.
+Para representar um ambiente operacional próximo ao real, adotou-se uma abordagem integrada que combina um Simulador de Sistema Multiagente (MAS) com um Emulador de Rede. Essa combinação permite modelar tanto o comportamento das tropas quanto os desafios de comunicação característicos de cenários militares. A Figura 1 apresenta a arquitetura geral do sistema S2C2 EmuSim, responsável por configurar e orquestrar as simulações.
+
+O sistema é composto por módulos que se complementam. A interface gráfica (GUI) e o componente lógico S2C2 permitem ao operador criar, carregar e gerenciar cenários de simulação. O conhecimento doutrinário militar é fornecido por uma ontologia externa em OWL, utilizada pelo OWL Manager para manter a consistência lógica dos cenários e apoiar a criação e edição de instâncias de simulação.
+
+Parâmetros operacionais adicionais — como seleção do mapa, modo de execução e opções de visualização — são controlados pelo Parameters Manager, que repassa a configuração final ao orquestrador EmuSim. Este é o núcleo do sistema, responsável por coordenar a execução conjunta do Simulador MAS e do Emulador de Rede, garantindo a sincronização entre o comportamento dos agentes e o fluxo de comunicação.
+
+A arquitetura também inclui um módulo de gerenciamento de dados, responsável por registrar resultados das simulações, manter o modelo de dados e interagir com a ontologia. Para análise e visualização, métricas e indicadores são disponibilizados por meio de dashboards integrados ao Grafana, permitindo observar o desempenho dos cenários simulados.
+
+3. Modelagem do Sistema {#sec-03}
+
+Esta seção descreve como os principais componentes do S2C2 se organizam e contribuem para a execução das simulações, aprofundando a visão geral apresentada na Seção 2.
+
+3.1 Componentes GUI, S2C2 e OWL Manager {#subsec-03-1}
+
+A aplicação inicia pela GUI, responsável pela interação com o usuário. As ações realizadas na interface são encaminhadas ao componente S2C2, que concentra a lógica do sistema e coordena as operações internas.
+
+O OWL Manager gerencia a ontologia OWL IME S2C2 Base, que define regras da doutrina militar utilizadas na construção dos cenários (tipos de agentes, restrições, parâmetros de comunicações etc.). A partir dessa ontologia:
+
+OWL Create Instance gera as instâncias do cenário.
+
+OWL Update Instance atualiza essas instâncias conforme alterações feitas pelo usuário.
+
+O Parameters Manager organiza e exibe os parâmetros disponíveis, respeitando as regras da ontologia.
+
+3.2 Componente EmuSim e suas Relações {#subsec-03-2}
+
+O EmuSim integra a simulação multiagente e a emulação de rede. Implementado em Python, ele sincroniza o Simulador MAS (NetLogo) e o Emulador de Redes (Mininet-WiFi), mantendo alinhados o movimento dos agentes e o comportamento das comunicações.
+
+Durante a execução:
+
+O NetLogo controla os agentes e o ambiente do terreno.
+
+O Mininet-WiFi executa as aplicações C2 e simula enlaces de comunicação isolados.
+
+Interfaces como PyNetLogo e MN_Wifi permitem o envio contínuo de dados entre os sistemas.
+
+Cada tropa simulada corresponde a uma estação virtual com sua própria pilha de rede. Os dados coletados são armazenados pelo DataManager para análise posterior.
+
+3.3 Modelagem dos Mapas e Ambiente de Simulação {#subsec-03-3}
+
+A modelagem dos mapas utiliza arquivos Shapefile (SHP) provenientes de bases oficiais, como o BDGEx. Esses arquivos são processados em SIG (ex.: QGIS) para gerar camadas compatíveis com o NetLogo.
+
+A criação de novos cenários requer:
+
+filtragem das camadas vetoriais,
+
+definição do tamanho real do terreno,
+
+geração da imagem PNG,
+
+criação do arquivo de configuração do mapa.
+
+A escolha do cenário é feita por um menu dropdown (Figura abaixo).
+
+<figure id="fig:dropdown"> <p><img src="assets/images/fig11.mapas_dropdown.jpeg" style="width:80%" /></p> <figcaption>Dropdown para escolha de mapas.</figcaption> </figure>
+
+A simulação pode ocorrer:
+
+Sobre o mapa vetorial, com interação direta com o grid;
+
+Sobre a imagem PNG, privilegiando visualização.
+
+<figure id="fig:mapa_netlogo"> <p><img src="assets/images/fig12.mapa_simulação.jpeg" style="width:80%" /></p> <figcaption>Simulação com mapa vetorial.</figcaption> </figure> <figure id="fig:mapa_png"> <p><img src="assets/images/fig13.mapa_PNG.jpeg" style="width:80%" /></p> <figcaption>Simulação com mapa PNG.</figcaption> </figure>
+Granularidade
+
+A granularidade do grid impacta o desempenho: patches muito pequenos aumentam significativamente o custo computacional. O sistema permite ajustar esse valor por meio de um controle deslizante (Figura abaixo), recalculando automaticamente as dimensões da grade.
+
+<figure id="fig:patch_slider"> <p><img src="assets/images/fig14.slider_patch.jpeg" style="width:80%" /></p> <figcaption>Ajuste de tamanho de patches.</figcaption> </figure>
 
 # MODELOS DE FLUXO DO SISTEMA {#sec-04}
 
