@@ -187,7 +187,7 @@ Para um agente *Saudável*:
 
 A identificação correta de aliados é fundamental para evitar **fogo amigo**, discutido na próxima seção.
 
-# <strong>5. APLICAÇÕES DE S2C2 — Versão Resumida e Simplificada </strong>
+# <strong>5. APLICAÇÕES DE S2C2 </strong>
 
 Ao longo do projeto foram desenvolvidas diferentes aplicações para avaliar o desempenho do simulador S2C2. Estas aplicações permitem observar como a comunicação, o movimento das unidades e as condições do terreno influenciam o comportamento geral do sistema em cenários operacionais.
 
