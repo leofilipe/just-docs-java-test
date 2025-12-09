@@ -21,11 +21,11 @@ Parâmetros operacionais adicionais — como seleção do mapa, modo de execuç�
 
 A arquitetura também inclui um módulo de gerenciamento de dados, responsável por registrar resultados das simulações, manter o modelo de dados e interagir com a ontologia. Para análise e visualização, métricas e indicadores são disponibilizados por meio de dashboards integrados ao Grafana, permitindo observar o desempenho dos cenários simulados.
 
-3. Modelagem do Sistema {#sec-03}
+## Modelagem do Sistema {#sec-03}
 
 Esta seção descreve como os principais componentes do S2C2 se organizam e contribuem para a execução das simulações, aprofundando a visão geral apresentada na Seção 2.
 
-3.1 Componentes GUI, S2C2 e OWL Manager {#subsec-03-1}
+## Componentes GUI, S2C2 e OWL Manager {#subsec-03-1}
 
 A aplicação inicia pela GUI, responsável pela interação com o usuário. As ações realizadas na interface são encaminhadas ao componente S2C2, que concentra a lógica do sistema e coordena as operações internas.
 
@@ -37,7 +37,7 @@ OWL Update Instance atualiza essas instâncias conforme alterações feitas pelo
 
 O Parameters Manager organiza e exibe os parâmetros disponíveis, respeitando as regras da ontologia.
 
-3.2 Componente EmuSim e suas Relações {#subsec-03-2}
+## 3.2 Componente EmuSim e suas Relações {#subsec-03-2}
 
 O EmuSim integra a simulação multiagente e a emulação de rede. Implementado em Python, ele sincroniza o Simulador MAS (NetLogo) e o Emulador de Redes (Mininet-WiFi), mantendo alinhados o movimento dos agentes e o comportamento das comunicações.
 
@@ -51,7 +51,7 @@ Interfaces como PyNetLogo e MN_Wifi permitem o envio contínuo de dados entre os
 
 Cada tropa simulada corresponde a uma estação virtual com sua própria pilha de rede. Os dados coletados são armazenados pelo DataManager para análise posterior.
 
-3.3 Modelagem dos Mapas e Ambiente de Simulação {#subsec-03-3}
+## 3.3 Modelagem dos Mapas e Ambiente de Simulação {#subsec-03-3}
 
 A modelagem dos mapas utiliza arquivos Shapefile (SHP) provenientes de bases oficiais, como o BDGEx. Esses arquivos são processados em SIG (ex.: QGIS) para gerar camadas compatíveis com o NetLogo.
 
@@ -82,243 +82,115 @@ A granularidade do grid impacta o desempenho: patches muito pequenos aumentam si
 
 <figure id="fig:patch_slider"> <p><img src="assets/images/fig14.slider_patch.jpeg" style="width:80%" /></p> <figcaption>Ajuste de tamanho de patches.</figcaption> </figure>
 
-# MODELOS DE FLUXO DO SISTEMA {#sec-04}
+Aqui está uma **versão mais enxuta**, mantendo clareza, estrutura e o essencial do conteúdo técnico.
 
-A execução do sistema comporta uma série de modelos de fluxo, que vão
-desde o fluxo da aplicação como um todo até a modelagem do comportamento
-de agentes e da identificação de situações de fogo amigo. Estes
-diferentes fluxos são apresentados nas subseções a seguir. Importante
-frisar que, apesar de se mencionar ao longo desse capítulo a aplicação
-C2 Blue Force Tracking (*BFT*), o sistema desenvolvido é genérico para
-qualquer aplicação C2 e essa aplicação em especifico é usada apenas para
-facilitar a compreensão de como o sistema funciona de forma geral.
+---
 
-## Modelagem do Fluxo da aplicação {#sec-04.1}
+# Modelos de Fluxo do Sistema {#sec-04}**
 
-O modelo de fluxo da aplicação está detalhado na
-Figura [8](#fig:8.simulatio.flow){reference-type="ref"
-reference="fig:8.simulatio.flow"}, sendo detalhado a seguir.
+Esta seção descreve os principais fluxos de operação do sistema, desde o funcionamento geral da aplicação até o comportamento dos agentes e a identificação de situações de fogo amigo. Embora o exemplo utilize a aplicação C2 *Blue Force Tracking (BFT)*, o sistema é genérico para qualquer aplicação C2.
 
-1.  O usuário inicia o sistema utilizando o componente "GUI" e seleciona
-    iniciar uma simulação, configurandoo os paramêtros que lhe são
-    apresentados.
+---
 
-2.  O componente lógico S2C2 Menu valida a solicitação do usuário dentro
-    das restrições estabelecidas pela doutrina militar, estipuladas
-    pelos componentes de *OWL Manager* e solicita o disparo da simulação
-    ao componente EmuSim.
+## Fluxo Geral da Aplicação {#sec-04.1}**
 
-3.  O "EmuSim" inicializa os componente *Simulador MAS*.
+A Figura [8](#fig:8.simulatio.flow) apresenta o fluxo completo da execução:
 
-4.  O "EmuSim" inicializa os componente *Emulador de Redes*.
+1. O usuário inicia a simulação pela **GUI**, configurando os parâmetros.
+2. O **S2C2 Menu** valida a configuração com base na doutrina militar definida no **OWL Manager** e dispara a execução no **EmuSim**.
+3. O **EmuSim** inicializa o **Simulador MAS**.
+4. O **EmuSim** inicializa o **Emulador de Redes**.
+5. O **EmuSim** instancia a aplicação **BFT** dentro do Emulador de Redes.
+6. A simulação entra em loop:
 
-5.  O "EmuSim" instancia os componente *BFT* implementado dentro do
-    componente *Emulador de Redes*.
-
-6.  O sistema executa o loop da simulação até que o objetivo da mesma
-    seja alcançado:
-
-    1.  O *EmuSim* recupera do *Simulador MAS* as posições e dados dos
-        nós da simulação por meio da interface interface PyNetLogo.
-
-    2.  O *EmuSim* envia os dados coletados para o *Emulador de Redes*
-        por meio da interface interface MN_Wifi.
-
-    3.  O *EmuSim* envia os mesmos dados para a aplicação *BFT* por meio
-        da interface interface MQTT.
-
-    4.  A aplicação *BFT* devolve os dados processados para o componente
-        *EmuSim*.
-
-    5.  O componente *EmuSim* envia para o *Simulador SMA* os dados
-        processados pelo *BFT*, que são usados para determinar e
-        representar situações de fogo amigo na simulação.
-
-    6.  Os dados resultantes são escritos pelo *EmuSim* no banco de
-        dados.
-
-7.  O *EmuSim* envia uma mensagem para interromper tanto o *Emulador de
-    Redes*.
-
-8.  O *EmuSim* envia uma mensagem para interromper o *Simulador SMA*,
-    finalizando a simulação.
+   * O **Simulador MAS** envia posições via *PyNetLogo*.
+   * O **Emulador de Redes** recebe as atualizações via *MN_Wifi*.
+   * A **BFT** recebe os dados via *MQTT* e devolve o processamento.
+   * O **EmuSim** repassa essas informações ao MAS, incluindo eventos de fogo amigo.
+   * Os resultados são armazenados pelo **DataManager**.
+7. O **EmuSim** encerra o Emulador de Redes.
+8. O **EmuSim** encerra o Simulador MAS, finalizando a execução.
 
 <figure id="fig:8.simulatio.flow" data-latex-placement="!ht">
-<p><img src="assets/images/fig8.simulation.flow.png" alt="image" /> <span
-id="fig:8.simulatio.flow" data-label="fig:8.simulatio.flow"></span></p>
+<p><img src="assets/images/fig8.simulation.flow.png" alt="image"/></p>
 <p>Fonte: os autores.</p>
-<figcaption>Diagrama de sequência da aplicação para a execução de
-cenários de simulação</figcaption>
+<figcaption>Fluxo de execução da simulação.</figcaption>
 </figure>
 
-## Modelagem do Sistema Multiagente {#sec-04.2}
+---
 
-O cenário de simulação do sistema consiste em um mapa de batalha 2D de
-tamanho $N \times M$, composto por uma grade $p_{x,y}$ de caminhos
-possíveis, para o qual é possível personalizar a geografia do mapa, o
-número de unidades aliadas e inimigas, a posição inicial e final para os
-mesmos e também a localização de diferentes pontos de controle.
+## **4.2 Modelagem do Sistema Multiagente {#sec-04.2}**
 
-Um exemplo disso está ilustrado na Figura
-[9](#fig:4.simulation){reference-type="ref"
-reference="fig:4.simulation"}. Nela, trinta (30) agentes aliados são
-representados por hexágonos azuis, que simbolizam soldados autônomos a
-pé. Esses agentes devem atravessar o mapa, partindo da posição inicial
-na base aliada (A), indicada por um quadrado branco próximo ao canto
-inferior esquerdo do mesmo, até o destino (C), na base inimiga,
-representada por um quadrado vermelho próximo ao canto superior direito
-do mapa. Durante o trajeto, cada agente deve passar por pelo menos um
-dos diferentes pontos de controle (B), representados por quadrados
-amarelos ou laranjas, ao mesmo tempo em que confrontam dez (10) agentes
-inimigos, simbolizados por hexágonos vermelhos, que se movem na direção
-oposta, em direção à base aliada.
+A simulação ocorre em um mapa 2D $N \times M$, composto por patches $p_{x,y}$. O usuário pode configurar geografia, número de unidades, posições iniciais e finais e pontos de controle.
+
+A Figura [9](#fig:4.simulation) ilustra um cenário típico:
+30 agentes aliados (azuis) deslocam-se da base aliada (A) até o objetivo (C), passando por pontos de controle (B) e enfrentando 10 agentes inimigos (vermelhos).
 
 <figure id="fig:4.simulation" data-latex-placement="ht">
-<p><img src="assets/images/fig4.butiaSimulation.jpeg" style="width:60.0%"
-alt="image" /> <span id="fig:4.simulation"
-data-label="fig:4.simulation"></span></p>
+<p><img src="assets/images/fig4.butiaSimulation.jpeg" style="width:60%" alt="image"/></p>
 <p>Fonte: os autores.</p>
-<figcaption>Simulação de ataque mostrando incidentes e baixas das
-unidades.</figcaption>
+<figcaption>Simulação com agentes aliados e inimigos.</figcaption>
 </figure>
 
-Para navegar pelo mapa, tanto unidades aliadas come inimigas navegam
-utilizam o algoritmo A\*, que emprega uma função de avaliação, $f$, para
-encontrar o caminho mais curto entre dois nós, minimizando a soma da
-função de custo e dos valores heurísticos [@li2020path]. A equação
-[\[a_star_function\]](#a_star_function){reference-type="ref"
-reference="a_star_function"} define $f$ para qualquer agente $a_{i}$ na
-simulação.
+### **Navegação com A***
 
-$$\begin{equation}
-    f(a_{i}) = c_{a_{i}} + h_{a_{i}}
-    \label{a_star_function}
-\end{equation}$$
+Aliados e inimigos utilizam o algoritmo **A***. A função de avaliação é:
 
-Por requisição dos stakeholders, a função de custo não leva em conta
-nuances de decisão comportamental humana, pois o foco está em resolver
-questões de comunicação, especialmente situações de fogo amigo (seção
-[5.2](#sec-04.3){reference-type="ref" reference="sec:04.3"}). Portanto,
-a equação [\[cost_function\]](#cost_function){reference-type="ref"
-reference="cost_function"},que calcula a função de custo $c$ para
-qualquer agente $a_{i}$ em direção ao objetivo $g$, tem como objetivo
-encontrar a soma ótima para cada patch $p_{x,y}$ desde a posição atual
-$pos$ do agente até o destino $g$, multiplicada pelo peso do tipo de
-terreno $w_{p_{x,y}}$ para o patch atual. Os valores dos pesos
-$w_{p_{x,y}}$ para cada patch $p_{x,y}$ do mapa são:
+[
+f(a_i) = c_{a_i} + h_{a_i}
+]
 
-- Planícies: 1
+A função de custo soma os pesos dos patches até o destino:
 
-- Áreas alagadas/terrenos de baixa elevação: 2
+[
+c_{a_i}=\sum_{g}^{pos}(p_{x,y} \times w_{p_{x,y}})
+]
 
-- Terrenos de média elevação: 3
+Pesos do terreno:
 
-- Terrenos intransponíveis (águas profunda ou terrenos elevados): 4
+* planícies (1)
+* áreas alagadas (2)
+* média elevação (3)
+* intransponíveis (4)
 
-$$\begin{equation}
-    c_{a_{i}}=\sum_{g}^{pos}\left ( p_{x,y} \times w_{p_{x,y}}\right )
-    \label{cost_function}
-\end{equation}$$
+A heurística é a distância Euclidiana até o objetivo.
 
-Por fim, o valor heurístico $h$ para o caminho de qualquer agente
-$a_{i}$ até o seu objetivo é a distância Euclidiana entre sua posição
-atual $(x_{a_{i}}, y_{a_{i}})$ e o patch do objetivo $g$, ou mais
-precisamente $(x_{g}, y_{g})$. Assim,
-$h(a_{i})=\sqrt{(x_{a_{i}} - x_{g})^2 + (y_{a_{i}} - y_{g})^2}$.
+---
 
-### Modelagem do Estado dos Agentes Sob Staque {#sec-04.1.1}
+## **4.3 Modelagem de Estados dos Agentes {#sec-04.1.1}**
 
-Ainda que as unidades aliadas e inimigas representadas por cada
-simulação sejam inicialmente representadas como hexágonos de cor azul ou
-vemelha, essas cores são dinamicamente alteradas pela simulação para
-refletir o estado atual de cada agente, como é possível ver na
-Figura [9](#fig:4.simulation){reference-type="ref"
-reference="fig:4.simulation"} apresentada anteriormente.
-Particularmente, referente a aliados e inimigos essas cores podem ser,
-respectivamente:
+As unidades mudam de cor conforme seu estado:
+**Saudável**, **Ferido**, **Assistência médica urgente**, **Morto**.
 
-- **Saudável**: azul/vermelho
-
-- **Ferido**: roxo/rosa
-
-- **Assistência médica urgente**: amarelo/laranja
-
-- **Morto**: cinza/preto
-
-Esses estados e suas devidas transições são definidos a partir de uma
-Máquina de Estados Finitos (Finite State Machine, FSM), um tipo de
-sistema estruturado que se caracteriza por um número finito de estados
-interconectados por meio de transições. Cada estado abrange
-comportamentos ou algoritmos específicos que são ativados ao entrar no
-estado ou durante sua fase ativa. Os estados são representados como nós
-conectados por transições, garantindo acessibilidade a todos os estados,
-de forma direta ou indireta [@jagdale2021finite].
-
-Entidades que operam dentro de uma FSM transitam de seu estado atual
-$s_i$ para outro estado $s_j$ com base em condições predefinidas
-associadas aquele estado. O cumprimento dessas condições aciona uma
-transição para o estado conectado correspondente, permitindo mudanças
-dinâmicas de estado dentro da FSM [@jagdale2021finite].
-
-A FSM empregada para os agentes desta aplicação está ilustrada na Figura
-[10](#fig:5.fsm){reference-type="ref" reference="fig:5.fsm"}, que
-identifica o estado *Saudável* como o estado inicial dos agentes
-enquanto que *Assistência médica urgente* e *Morto* são estados finais
-deste fluxo. A adoção de *Assistência médica urgente* como estado final,
-além de *Morto*, vai ao encontro da Convenção de Genebra, que protege
-indivíduos nesse estado contra novos danos.
+Esses estados são definidos por uma **Máquina de Estados Finitos (FSM)**, mostrada na Figura [10](#fig:5.fsm). O estado inicial é *Saudável*, e os estados finais são *Assistência médica urgente* e *Morto*, alinhados às regras da Convenção de Genebra.
 
 <figure id="fig:5.fsm" data-latex-placement="ht">
-<p><img src="assets/images/fig5.fsm.png" style="width:80.0%" alt="image" /> <span
-id="fig:5.fsm" data-label="fig:5.fsm"></span></p>
+<p><img src="assets/images/fig5.fsm.png" style="width:80%" alt="image"/></p>
 <p>Fonte: os autores.</p>
-<figcaption>FSM para os estados dos agentes da aplicação sob
-ataque.</figcaption>
+<figcaption>FSM dos estados dos agentes.</figcaption>
 </figure>
 
-Agentes mudam de estado quando atacados. O estado resultante é
-determinado por um valor aleatório $d$, usado para avaliar a dificuldade
-do ataque. Se $d > 0.8$, nenhum ataque ocorre, semelhante a uma unidade
-decidindo não engajar um alvo. No entanto, se $d \leq 0.8$, o atacante
-dispara, acionando uma transição de estado.
+### **Transições de Estado por Ataque**
 
-A modelagem desta FSM assume que a probabilidade de acertar um ponto
-específico do alvo diminui à medida que a letalidade do impacto aumenta.
-Por exemplo, tiros direcionados a áreas altamente letais, como a cabeça,
-são mais difíceis de atingir. Perspectiva que foi incorporada à FSM ao
-estabelecer limites para que $d$ acione uma transição.
+A cada ataque, um valor aleatório ( d ) determina a transição:
 
-Esses limites incluem uma função $precisao$ relacionada ao ataque $atq$,
-que tem como dois fatores principais o alcance da arma do atacante e a
-distância em linha reta entre o atacante e o alvo. Função que é
-construída de forma que $precisao(atq) \leq 0.8$.
+* ( d > 0.8 ): não há ataque.
+* ( d \leq 0.8 ): o atacante dispara.
 
-A transição de estado resultante de um ataque $(d \leq 0.8)$ depende do
-estado atual do agente e do valor aleatório de dificuldade sorteado para
-$d$. Por exemplo, o estado inicial *Saudável* conta com as seguintes
-possíveis transições:
+A probabilidade de acerto depende da função de **precisão**, influenciada pela distância e alcance da arma, sempre com ( precisao(atq) \leq 0.8 ).
 
-- $d > precisao(atq)$: O ataque erra, e a unidade alvo permanece
-  *Saudável*.
+Para um agente *Saudável*:
 
-- $0.25 \leq d \leq precisao(atq)$: O ataque acerta, a unidade alvo
-  permanece em combate, transita para o estado *Ferido* e tem sua
-  mobilidade reduzida.
+* ( d > precisao(atq) ): erra → permanece *Saudável*
+* ( 0.25 \le d \le precisao(atq) ): acerto leve → *Ferido*
+* ( 0.25 < d \le 0.5 ): acerto grave → *Assistência médica urgente*
+* ( 0.5 < d \le 0.8 ): acerto crítico → *Morto*
 
-- $0.25 < d \leq 0.5$: O ataque é grave, a unidade alvo é forçada a
-  evacuar e transita para o estado *Assistência médica urgente*.
+A identificação correta de aliados é fundamental para evitar **fogo amigo**, discutido na próxima seção.
 
-- $0.5 < d \leq 0.8$: O ataque é crítico, a unidade alvo é abatida e
-  transita para o estado *Morto*.
+---
 
-A quantidade de informação que uma unidade possui sobre outra influencia
-diretamente a decisão de atacar. Por isso, a comunicação é vital para
-soldados a pé. O reconhecimento visual permite identificar aliados sem
-depender da rede, porém só é possível dentro de uma distância máxima em
-linha reta; ainda assim, continua essencial. Falhas nesse reconhecimento
---- por limitação de alcance, condições ambientais ou erro de percepção
---- podem gerar incidentes de fogo amigo, que são discutidos na próxima
-seção.
+Se quiser, posso **reduzir ainda mais**, **simplificar a redação**, ou **formatar como texto científico ABNT**.
 
 # APLICAÇÕES DE S2C2 {#sec-05}
 
