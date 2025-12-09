@@ -2,23 +2,31 @@ title: "Projeto S2C2"
 logo: "/assets/images/logos2c2.png"
 theme: just-the-docs
 
-url: https://leofilipe.github.io/just-docs-java-test/
+# URL raiz do GitHub Pages do usuário
+url: "https://leofilipe.github.io"
+
+# Nome do repositório
+baseurl: "/just-docs-java-test"
 
 # CSS customizado
 just_the_docs:
   css: "assets/css/custom.css"
-  
-# INJEÇÃO FORÇADA DE LINKS NA BARRA LATERAL (Solução Robusta)
-nav_footer_content: |
-  <hr>
-  <h3 class="nav_footer_heading">ÍNDICE</h3>
-  <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-    <li><a href="/#sec-01">INTRODUÇÃO</a></li>
-    <li><a href="/#sec-02">VISÃO ARQUITETURAL</a></li>
-    <li><a href="/#sec-03">MODELAGEM DO SISTEMA</a></li>
-    <li><a href="/#sec-04">MODELOS DE FLUXO DO SISTEMA</a></li>
-    <li><a href="/#sec-05">APLICAÇÕES DE S2C2</a></li>
-    <li><a href="/#sec-06">CENÁRIOS DE TESTES E RESULTADOS</a></li>
-    <li><a href="/#sec-07">PUBLICAÇÕES GERADAS</a></li>
-    <li><a href="/#sec-08">CONSIDERAÇÕES FINAIS</a></li>
-  </ul>
+
+# LINKS NO TOPO (opcional)
+nav_external_links:
+  - title: "INTRODUÇÃO"
+    url: "/just-docs-java-test/#sec-01"
+  - title: "VISÃO ARQUITETURAL"
+    url: "/just-docs-java-test/#sec-02"
+  - title: "MODELAGEM DO SISTEMA"
+    url: "/just-docs-java-test/#sec-03"
+  - title: "MODELOS DE FLUXO DO SISTEMA"
+    url: "/just-docs-java-test/#sec-04"
+  - title: "APLICAÇÕES DE S2C2"
+    url: "/just-docs-java-test/#sec-05"
+  - title: "CENÁRIOS DE TESTES E RESULTADOS"
+    url: "/just-docs-java-test/#sec-06"
+  - title: "PUBLICAÇÕES GERADAS"
+    url: "/just-docs-java-test/#sec-07"
+  - title: "CONSIDERAÇÕES FINAIS"
+    url: "/just-docs-java-test/#sec-08"
