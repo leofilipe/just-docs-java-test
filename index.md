@@ -306,7 +306,7 @@ Após o estabelecimento da comunicação, o nó é incorporado corretamente à e
 
 O cenário BRAVO amplia os testes anteriores, incorporando novos perfis de unidades, ajustes na comunicação e maior variação nos elementos operacionais. Ele funciona como um desdobramento natural das capacidades demonstradas nos cenários BFT e GCB.
 
-# <strong>7. PUBLICAÇÕES GERADAS </strong>{#sec:07}
+# <strong>7. PUBLICAÇÕES GERADAS</strong> {#sec:07}
 
 - CARVALHO, Leonardo Filipe Batista Silva de; DE SOUZA, Vitor Simon;
   BONATTO, Alisson Nunes; PEREZ, Thales Junqueira Albergaria Moraes; DE
