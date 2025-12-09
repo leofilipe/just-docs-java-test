@@ -3,7 +3,7 @@ title: Projeto S2C2
 layout: home
 ---
 
-# **1. INTRODUÇÃO {#sec:01}**
+# <strong> 1. INTRODUÇÃO </strong> {#sec:01}
 
 O desenvolvimento de uma rede de comunicação capaz de atender às necessidades das aplicações da Família de Aplicativos de Comando e Controle da Força Terrestre (FAC2FTer) envolve explorar diferentes alternativas de projeto para garantir eficiência na troca de dados entre tropas em variados cenários operacionais. Essas soluções devem representar com fidelidade o contexto militar, incluindo movimentação e posicionamento de unidades.
 
@@ -11,7 +11,7 @@ Com a evolução das aplicações de comando e controle e os investimentos do Ex
 
 Este documento apresenta a visão geral do Sistema de Simulação no âmbito do projeto Sistema de Sistemas de Comando e Controle (S2C2), destacando sua arquitetura, seus principais componentes e o manual de utilização da ferramenta. O foco está nos módulos responsáveis pela simulação da rede de comunicação e pelo comportamento dos agentes que representam as tropas no ambiente simulado, bem como nas orientações para uso da solução desenvolvida.
 
-# **2. VISÃO ARQUITETURAL {#sec:02}**
+# <strong>2. VISÃO ARQUITETURAL </strong> {#sec:02}
 
 Para representar um ambiente operacional próximo ao real, adotou-se uma abordagem integrada que combina um Simulador de Sistema Multiagente (MAS) com um Emulador de Rede. Essa combinação permite modelar tanto o comportamento das tropas quanto os desafios de comunicação característicos de cenários militares. A Figura 1 apresenta a arquitetura geral do sistema S2C2 EmuSim, responsável por configurar e orquestrar as simulações.
 
@@ -21,11 +21,11 @@ Parâmetros operacionais adicionais — como seleção do mapa, modo de execuç�
 
 A arquitetura também inclui um módulo de gerenciamento de dados, responsável por registrar resultados das simulações, manter o modelo de dados e interagir com a ontologia. Para análise e visualização, métricas e indicadores são disponibilizados por meio de dashboards integrados ao Grafana, permitindo observar o desempenho dos cenários simulados.
 
-# **3. MODELAGEM DO SISTEMA {#sec:03}**
+# <strong>3. MODELAGEM DO SISTEMA </strong> {#sec:03}
 
 Esta seção descreve como os principais componentes do S2C2 se organizam e contribuem para a execução das simulações, aprofundando a visão geral apresentada na Seção 2.
 
-## **3.1. Componentes GUI, S2C2 e OWL Manager {#sec:03.1}**
+## <strong>3.1. Componentes GUI, S2C2 e OWL Manager </strong> {#sec:03.1}
 
 A aplicação inicia pela **GUI**, responsável pela interação com o usuário. As ações realizadas na interface são encaminhadas ao componente **S2C2**, que concentra a lógica do sistema e coordena as operações internas.
 
@@ -35,7 +35,7 @@ O **OWL Manager** gerencia a ontologia *OWL IME S2C2 Base*, que define regras da
 * **OWL Update Instance** atualiza essas instâncias conforme alterações feitas pelo usuário.
 * O **Parameters Manager** organiza e exibe os parâmetros disponíveis, respeitando as regras da ontologia.
 
-## **3.2. Componente EmuSim e suas Relações {#sec:03.2}**
+## <strong>3.2. Componente EmuSim e suas Relações </strong> {#sec:03.2}
 
 O **EmuSim** integra a simulação multiagente e a emulação de rede. Implementado em Python, ele sincroniza o **Simulador MAS (NetLogo)** e o **Emulador de Redes (Mininet-WiFi)**, mantendo alinhados o movimento dos agentes e o comportamento das comunicações.
 
@@ -47,7 +47,7 @@ Durante a execução:
 
 Cada tropa simulada corresponde a uma estação virtual com sua própria pilha de rede. Os dados coletados são armazenados pelo **DataManager** para análise posterior.
 
-## **3.3. Modelagem dos Mapas e Ambiente de Simulação {#sec:03.3}**
+## <strong>3.3. Modelagem dos Mapas e Ambiente de Simulação </strong> {#sec:03.3}
 
 A modelagem dos mapas utiliza arquivos **Shapefile (SHP)** provenientes de bases oficiais, como o BDGEx. Esses arquivos são processados em SIG (ex.: QGIS) para gerar camadas compatíveis com o NetLogo.
 
@@ -80,7 +80,7 @@ A simulação pode ocorrer:
 <figcaption>Simulação com mapa PNG.</figcaption>
 </figure>
 
-### **Granularidade**
+### <strong>Granularidade </strong>
 
 A granularidade do grid impacta o desempenho: patches muito pequenos aumentam significativamente o custo computacional. O sistema permite ajustar esse valor por meio de um controle deslizante (Figura abaixo), recalculando automaticamente as dimensões da grade.
 
@@ -89,11 +89,11 @@ A granularidade do grid impacta o desempenho: patches muito pequenos aumentam si
 <figcaption>Ajuste de tamanho de patches.</figcaption>
 </figure>
 
-# **4. MODELOS DE FLUXO DO SISTEMA {#sec:04}**
+# <strong>4. MODELOS DE FLUXO DO SISTEMA </strong> {#sec:04}
 
 Esta seção descreve os principais fluxos de operação do sistema, desde o funcionamento geral da aplicação até o comportamento dos agentes e a identificação de situações de fogo amigo. Embora o exemplo utilize a aplicação C2 *Blue Force Tracking (BFT)*, o sistema é genérico para qualquer aplicação C2.
 
-## **4.1. Fluxo Geral da Aplicação {#sec:04.1}**
+## <strong>4.1. Fluxo Geral da Aplicação </strong> {#sec:04.1}
 
 A Figura [8](#fig:8.simulatio.flow) apresenta o fluxo completo da execução:
 
@@ -118,7 +118,7 @@ A Figura [8](#fig:8.simulatio.flow) apresenta o fluxo completo da execução:
 <figcaption>Fluxo de execução da simulação.</figcaption>
 </figure>
 
-## **4.2. Modelagem do Sistema Multiagente {#sec:04.2}**
+## <strong>4.2. Modelagem do Sistema Multiagente </strong> {#sec:04.2}
 
 A simulação ocorre em um mapa 2D $N \times M$, composto por patches $p_{x,y}$. O usuário pode configurar geografia, número de unidades, posições iniciais e finais e pontos de controle.
 
@@ -131,7 +131,7 @@ A Figura [9](#fig:4.simulation) ilustra um cenário típico:
 <figcaption>Simulação com agentes aliados e inimigos.</figcaption>
 </figure>
 
-### **Navegação com A***
+### <strong>Navegação com A* </strong>
 
 Aliados e inimigos utilizam o algoritmo **A***. A função de avaliação é:
 
@@ -156,7 +156,7 @@ A heurística é a distância Euclidiana até o objetivo.
 
 ---
 
-## **4.3. Modelagem de Estados dos Agentes {#sec:04.3}**
+## <strong>4.3. Modelagem de Estados dos Agentes </strong> {#sec:04.3}
 
 As unidades mudam de cor conforme seu estado:
 **Saudável**, **Ferido**, **Assistência médica urgente**, **Morto**.
@@ -169,7 +169,7 @@ Esses estados são definidos por uma **Máquina de Estados Finitos (FSM)**, most
 <figcaption>FSM dos estados dos agentes.</figcaption>
 </figure>
 
-### **Transições de Estado por Ataque**
+### <strong>Transições de Estado por Ataque </strong>
 
 A cada ataque, um valor aleatório ( d ) determina a transição:
 
@@ -187,11 +187,11 @@ Para um agente *Saudável*:
 
 A identificação correta de aliados é fundamental para evitar **fogo amigo**, discutido na próxima seção.
 
-# **5. APLICAÇÕES DE S2C2 — Versão Resumida e Simplificada**
+# <strong>5. APLICAÇÕES DE S2C2 — Versão Resumida e Simplificada </strong>
 
 Ao longo do projeto foram desenvolvidas diferentes aplicações para avaliar o desempenho do simulador S2C2. Estas aplicações permitem observar como a comunicação, o movimento das unidades e as condições do terreno influenciam o comportamento geral do sistema em cenários operacionais.
 
-## **5.1. Modelos de Dados da Aplicação**
+## <strong>5.1. Modelos de Dados da Aplicação </strong>
 
 Para organizar as informações trocadas durante a simulação, o sistema utiliza três conjuntos principais de dados:
 
@@ -201,7 +201,7 @@ Para organizar as informações trocadas durante a simulação, o sistema utiliz
 
 Esses dados são usados pelo simulador e pelo emulador para calcular deslocamentos, avaliar conectividade e determinar impactos do terreno.
 
-## **5.2. Modelagem de Ocorrências de Fogo Amigo**
+## <strong>5.2. Modelagem de Ocorrências de Fogo Amigo </strong>
 
 A simulação também inclui um modelo para analisar situações de **fogo amigo**, isto é, quando unidades aliadas atacam outras unidades amigas por falha de identificação.
 Quando a identificação visual não é suficiente, as unidades dependem das informações fornecidas pelo **sistema BFT (Blue Force Tracking)**.
@@ -213,7 +213,7 @@ A troca de dados BFT entre as unidades é afetada por obstáculos, distância e 
 
 O modelo inclui regras gerais para determinar quando uma unidade decide atacar e como ocorre a classificação de cada disparo como “inimigo atingido” ou “fogo amigo”.
 
-## **5.3. Blue Force Tracking (BFT)**
+## <strong>5.3. Blue Force Tracking (BFT) </strong>
 
 Para analisar mais profundamente os impactos na identificação entre unidades aliadas, foi criada uma aplicação BFT executada diretamente em cada nó do Emulador de Redes.
 A aplicação opera de forma distribuída, enviando e recebendo informações de localização entre as unidades e repassando esses dados ao simulador para atualizar o cenário.
@@ -235,7 +235,7 @@ A arquitetura geral e a interação com o simulador são mostradas nas figuras a
 
 Ao final da simulação, o BFT gera um relatório com estatísticas de fogo amigo, permitindo avaliar o impacto das condições de comunicação e do terreno no desempenho das unidades aliadas.
 
-# **6. Cenários de Testes e Resultados {#sec:06}**
+# <strong>6. Cenários de Testes e Resultados</strong> {#sec:06}
 
 Diversos cenários de simulação foram executados ao longo do projeto para avaliar o desempenho das aplicações de comando e controle em diferentes contextos operacionais. As Figuras 16 e 17 ilustram algumas dessas execuções realizadas no laboratório S2C2.
 
@@ -251,7 +251,7 @@ Diversos cenários de simulação foram executados ao longo do projeto para aval
 
 Dois cenários principais foram analisados para avaliar o impacto da comunicação entre unidades aliadas — um sem inimigos e outro com presença inimiga — permitindo comparar o efeito dessas condições na ocorrência de fogo amigo.
 
-## **6.1. Cenário BFT 01: Ausência de inimigos**
+## <strong>6.1. Cenário BFT 01: Ausência de inimigos </strong>
 
 O primeiro cenário (Figura 18) simula 21 unidades aliadas distribuídas em três grupos, deslocando-se por um conjunto de pontos intermediários até seus destinos.
 
@@ -271,11 +271,11 @@ Os resultados estão sintetizados no gráfico da Figura 19.
 
 De forma geral, intervalos menores de comunicação reduzem significativamente o fogo amigo. Entretanto, a relação não é linear: variações locais no posicionamento das tropas podem criar zonas temporárias de maior ou menor conectividade, como observado nos intervalos T120 e T150.
 
-## **6.2. Cenário BFT 02: Presença de inimigos**
+## <strong>6.2. Cenário BFT 02: Presença de inimigos </strong>
 
 No segundo cenário, unidades inimigas são introduzidas para avaliar o impacto da detecção e identificação no comportamento das tropas aliadas. A inclusão dos inimigos afeta diretamente o tráfego de mensagens, o nível de cautela das unidades e a probabilidade de classificações equivocadas, ampliando a complexidade da simulação.
 
-## **6.3. Cenário GCB**
+## <strong>6.3. Cenário GCB</strong>
 
 O cenário com o GCB integrou sua aplicação ao modelo BFT, permitindo a troca de informações entre as estações e oferecendo suporte adicional ao processo de decisão do comandante.
 
@@ -302,11 +302,11 @@ Após o estabelecimento da comunicação, o nó é incorporado corretamente à e
 
 ---
 
-## **6.4. Cenário BRAVO (Extensão do Projeto S2C2)**
+## <strong>6.4. Cenário BRAVO (Extensão do Projeto S2C2)</strong>
 
 O cenário BRAVO amplia os testes anteriores, incorporando novos perfis de unidades, ajustes na comunicação e maior variação nos elementos operacionais. Ele funciona como um desdobramento natural das capacidades demonstradas nos cenários BFT e GCB.
 
-# **7. PUBLICAÇÕES GERADAS {#sec:07}**
+# <strong>7. PUBLICAÇÕES GERADAS </strong>{#sec:07}
 
 - CARVALHO, Leonardo Filipe Batista Silva de; DE SOUZA, Vitor Simon;
   BONATTO, Alisson Nunes; PEREZ, Thales Junqueira Albergaria Moraes; DE
@@ -356,7 +356,7 @@ O cenário BRAVO amplia os testes anteriores, incorporando novos perfis de unida
   DATA SCIENCE, TECHNOLOGY AND APPLICATIONS, 12., 2023, Rome.
   Proceedings\... Rome, 2023. p. 390.
 
-# **8. CONSIDERAÇÕES FINAIS {#sec:08}**
+# <strong>8. CONSIDERAÇÕES FINAIS</strong> {#sec:08}
 
 Este relatório apresentou o simulador desenvolvido no projeto S2C2, voltado ao apoio no desenvolvimento de sistemas e aplicativos de Comando e Controle (C2). O simulador oferece um ambiente de co-simulação que permite testar protocolos de comunicação e sistemas táticos em condições próximas às operacionais.
 
