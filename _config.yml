@@ -2,13 +2,15 @@ title: "Projeto S2C2"
 logo: "/assets/images/logos2c2.png"
 theme: just-the-docs
 
-url: https://leofilipe.github.io/just-docs-java-test/
+# Ajustado para GitHub Pages (raiz do domínio e subdiretório do projeto)
+url: "https://leofilipe.github.io"
+baseurl: "/just-docs-java-test"
 
 # CSS customizado
 just_the_docs:
   css: "assets/css/custom.css"
   
-nav_external:
+nav_external_links:
   - title: "INTRODUÇÃO"
     url: "#sec-01"
   - title: "VISÃO ARQUITETURAL"
