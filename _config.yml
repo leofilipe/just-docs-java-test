@@ -1,24 +1,16 @@
+# Arquivo: _config.yml
+
 title: "Projeto S2C2"
 logo: "/assets/images/logos2c2.png"
 theme: just-the-docs
 
-url: https://leofilipe.github.io/just-docs-java-test/
+# IMPORTANTE: A URL deve ser a RAIZ do seu domínio de usuário/organização
+url: "https://leofilipe.github.io"
+
+# IMPORTANTE: O baseurl deve ser o nome do seu repositório,
+# começando com barra (/) e SEM barra no final
+baseurl: "/just-docs-java-test"
 
 # CSS customizado
 just_the_docs:
   css: "assets/css/custom.css"
-  
-# INJEÇÃO FORÇADA DE LINKS NA BARRA LATERAL (Solução Robusta)
-nav_footer_content: |
-  <hr>
-  <h3 class="nav_footer_heading">ÍNDICE</h3>
-  <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-    <li><a href="/#sec-01">INTRODUÇÃO</a></li>
-    <li><a href="/#sec-02">VISÃO ARQUITETURAL</a></li>
-    <li><a href="/#sec-03">MODELAGEM DO SISTEMA</a></li>
-    <li><a href="/#sec-04">MODELOS DE FLUXO DO SISTEMA</a></li>
-    <li><a href="/#sec-05">APLICAÇÕES DE S2C2</a></li>
-    <li><a href="/#sec-06">CENÁRIOS DE TESTES E RESULTADOS</a></li>
-    <li><a href="/#sec-07">PUBLICAÇÕES GERADAS</a></li>
-    <li><a href="/#sec-08">CONSIDERAÇÕES FINAIS</a></li>
-  </ul>
