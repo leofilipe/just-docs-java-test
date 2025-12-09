@@ -1192,7 +1192,7 @@ na hierarquia de comando, conforme ilustrado na Figura
   DATA SCIENCE, TECHNOLOGY AND APPLICATIONS, 12., 2023, Rome.
   Proceedings\... Rome, 2023. p. 390.
 
-# CONSIDERAÇÕES FINAIS {#sec:sec-08}
+# CONSIDERAÇÕES FINAIS {#sec-08}
 
 Este relatório apresenta o simulador desenvolvido no projeto S2C2,
 visando melhorar o processo de desenvolvimento de sistema e aplicativos
