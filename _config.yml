@@ -15,7 +15,7 @@ baseurl: "/just-docs-java-test"
 just_the_docs:
   css: "assets/css/custom.css"
   
- nav:
+ nav_external_links:
   - title: "INTRODUÇÃO"
     url: "{{ site.baseurl }}/#sec-01"
 
