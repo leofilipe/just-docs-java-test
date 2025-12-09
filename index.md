@@ -3,7 +3,7 @@ title: Projeto S2C2
 layout: home
 ---
 
-# INTRODUÇÃO {#sec-01}
+# **INTRODUÇÃO {#sec-01}**
 
 O desenvolvimento de uma rede de comunicação capaz de atender às necessidades das aplicações da Família de Aplicativos de Comando e Controle da Força Terrestre (FAC2FTer) envolve explorar diferentes alternativas de projeto para garantir eficiência na troca de dados entre tropas em variados cenários operacionais. Essas soluções devem representar com fidelidade o contexto militar, incluindo movimentação e posicionamento de unidades.
 
@@ -11,7 +11,7 @@ Com a evolução das aplicações de comando e controle e os investimentos do Ex
 
 Este documento apresenta a visão geral do Sistema de Simulação no âmbito do projeto Sistema de Sistemas de Comando e Controle (S2C2), destacando sua arquitetura, seus principais componentes e o manual de utilização da ferramenta. O foco está nos módulos responsáveis pela simulação da rede de comunicação e pelo comportamento dos agentes que representam as tropas no ambiente simulado, bem como nas orientações para uso da solução desenvolvida.
 
-# VISÃO ARQUITETURAL {#sec-02}
+# **VISÃO ARQUITETURAL {#sec-02}**
 
 Para representar um ambiente operacional próximo ao real, adotou-se uma abordagem integrada que combina um Simulador de Sistema Multiagente (MAS) com um Emulador de Rede. Essa combinação permite modelar tanto o comportamento das tropas quanto os desafios de comunicação característicos de cenários militares. A Figura 1 apresenta a arquitetura geral do sistema S2C2 EmuSim, responsável por configurar e orquestrar as simulações.
 
@@ -21,78 +21,79 @@ Parâmetros operacionais adicionais — como seleção do mapa, modo de execuç�
 
 A arquitetura também inclui um módulo de gerenciamento de dados, responsável por registrar resultados das simulações, manter o modelo de dados e interagir com a ontologia. Para análise e visualização, métricas e indicadores são disponibilizados por meio de dashboards integrados ao Grafana, permitindo observar o desempenho dos cenários simulados.
 
-## Modelagem do Sistema {#sec-03}
+# **MODELAGEM DO SISTEMA {#sec-03}**
 
 Esta seção descreve como os principais componentes do S2C2 se organizam e contribuem para a execução das simulações, aprofundando a visão geral apresentada na Seção 2.
 
-## Componentes GUI, S2C2 e OWL Manager {#subsec-03-1}
+## **Componentes GUI, S2C2 e OWL Manager {#sec-03-1}**
 
-A aplicação inicia pela GUI, responsável pela interação com o usuário. As ações realizadas na interface são encaminhadas ao componente S2C2, que concentra a lógica do sistema e coordena as operações internas.
+A aplicação inicia pela **GUI**, responsável pela interação com o usuário. As ações realizadas na interface são encaminhadas ao componente **S2C2**, que concentra a lógica do sistema e coordena as operações internas.
 
-O OWL Manager gerencia a ontologia OWL IME S2C2 Base, que define regras da doutrina militar utilizadas na construção dos cenários (tipos de agentes, restrições, parâmetros de comunicações etc.). A partir dessa ontologia:
+O **OWL Manager** gerencia a ontologia *OWL IME S2C2 Base*, que define regras da doutrina militar utilizadas na construção dos cenários (tipos de agentes, restrições, parâmetros de comunicações etc.). A partir dessa ontologia:
 
-OWL Create Instance gera as instâncias do cenário.
+* **OWL Create Instance** gera as instâncias do cenário.
+* **OWL Update Instance** atualiza essas instâncias conforme alterações feitas pelo usuário.
+* O **Parameters Manager** organiza e exibe os parâmetros disponíveis, respeitando as regras da ontologia.
 
-OWL Update Instance atualiza essas instâncias conforme alterações feitas pelo usuário.
+## **Componente EmuSim e suas Relações {#sec-03-2}**
 
-O Parameters Manager organiza e exibe os parâmetros disponíveis, respeitando as regras da ontologia.
-
-## 3.2 Componente EmuSim e suas Relações {#subsec-03-2}
-
-O EmuSim integra a simulação multiagente e a emulação de rede. Implementado em Python, ele sincroniza o Simulador MAS (NetLogo) e o Emulador de Redes (Mininet-WiFi), mantendo alinhados o movimento dos agentes e o comportamento das comunicações.
+O **EmuSim** integra a simulação multiagente e a emulação de rede. Implementado em Python, ele sincroniza o **Simulador MAS (NetLogo)** e o **Emulador de Redes (Mininet-WiFi)**, mantendo alinhados o movimento dos agentes e o comportamento das comunicações.
 
 Durante a execução:
 
-O NetLogo controla os agentes e o ambiente do terreno.
+* O **NetLogo** controla os agentes e o ambiente do terreno.
+* O **Mininet-WiFi** executa as aplicações C2 e simula enlaces de comunicação isolados.
+* Interfaces como **PyNetLogo** e **MN_Wifi** permitem o envio contínuo de dados entre os sistemas.
 
-O Mininet-WiFi executa as aplicações C2 e simula enlaces de comunicação isolados.
+Cada tropa simulada corresponde a uma estação virtual com sua própria pilha de rede. Os dados coletados são armazenados pelo **DataManager** para análise posterior.
 
-Interfaces como PyNetLogo e MN_Wifi permitem o envio contínuo de dados entre os sistemas.
+## **Modelagem dos Mapas e Ambiente de Simulação {#sec-03-3}**
 
-Cada tropa simulada corresponde a uma estação virtual com sua própria pilha de rede. Os dados coletados são armazenados pelo DataManager para análise posterior.
-
-## 3.3 Modelagem dos Mapas e Ambiente de Simulação {#subsec-03-3}
-
-A modelagem dos mapas utiliza arquivos Shapefile (SHP) provenientes de bases oficiais, como o BDGEx. Esses arquivos são processados em SIG (ex.: QGIS) para gerar camadas compatíveis com o NetLogo.
+A modelagem dos mapas utiliza arquivos **Shapefile (SHP)** provenientes de bases oficiais, como o BDGEx. Esses arquivos são processados em SIG (ex.: QGIS) para gerar camadas compatíveis com o NetLogo.
 
 A criação de novos cenários requer:
 
-filtragem das camadas vetoriais,
+* filtragem das camadas vetoriais,
+* definição do tamanho real do terreno,
+* geração da imagem PNG,
+* criação do arquivo de configuração do mapa.
 
-definição do tamanho real do terreno,
+A escolha do cenário é feita por um menu *dropdown* (Figura abaixo).
 
-geração da imagem PNG,
-
-criação do arquivo de configuração do mapa.
-
-A escolha do cenário é feita por um menu dropdown (Figura abaixo).
-
-<figure id="fig:dropdown"> <p><img src="assets/images/fig11.mapas_dropdown.jpeg" style="width:80%" /></p> <figcaption>Dropdown para escolha de mapas.</figcaption> </figure>
+<figure id="fig:dropdown">
+<p><img src="assets/images/fig11.mapas_dropdown.jpeg" style="width:80%" /></p>
+<figcaption>Dropdown para escolha de mapas.</figcaption>
+</figure>
 
 A simulação pode ocorrer:
 
-Sobre o mapa vetorial, com interação direta com o grid;
+1. **Sobre o mapa vetorial**, com interação direta com o grid;
+2. **Sobre a imagem PNG**, privilegiando visualização.
 
-Sobre a imagem PNG, privilegiando visualização.
+<figure id="fig:mapa_netlogo">
+<p><img src="assets/images/fig12.mapa_simulação.jpeg" style="width:80%" /></p>
+<figcaption>Simulação com mapa vetorial.</figcaption>
+</figure>
 
-<figure id="fig:mapa_netlogo"> <p><img src="assets/images/fig12.mapa_simulação.jpeg" style="width:80%" /></p> <figcaption>Simulação com mapa vetorial.</figcaption> </figure> <figure id="fig:mapa_png"> <p><img src="assets/images/fig13.mapa_PNG.jpeg" style="width:80%" /></p> <figcaption>Simulação com mapa PNG.</figcaption> </figure>
-Granularidade
+<figure id="fig:mapa_png">
+<p><img src="assets/images/fig13.mapa_PNG.jpeg" style="width:80%" /></p>
+<figcaption>Simulação com mapa PNG.</figcaption>
+</figure>
+
+### **Granularidade**
 
 A granularidade do grid impacta o desempenho: patches muito pequenos aumentam significativamente o custo computacional. O sistema permite ajustar esse valor por meio de um controle deslizante (Figura abaixo), recalculando automaticamente as dimensões da grade.
 
-<figure id="fig:patch_slider"> <p><img src="assets/images/fig14.slider_patch.jpeg" style="width:80%" /></p> <figcaption>Ajuste de tamanho de patches.</figcaption> </figure>
+<figure id="fig:patch_slider">
+<p><img src="assets/images/fig14.slider_patch.jpeg" style="width:80%" /></p>
+<figcaption>Ajuste de tamanho de patches.</figcaption>
+</figure>
 
-Aqui está uma **versão mais enxuta**, mantendo clareza, estrutura e o essencial do conteúdo técnico.
-
----
-
-# Modelos de Fluxo do Sistema {#sec-04}**
+# **MODELOS DE FLUXO DO SISTEMA {#sec-04}**
 
 Esta seção descreve os principais fluxos de operação do sistema, desde o funcionamento geral da aplicação até o comportamento dos agentes e a identificação de situações de fogo amigo. Embora o exemplo utilize a aplicação C2 *Blue Force Tracking (BFT)*, o sistema é genérico para qualquer aplicação C2.
 
----
-
-## Fluxo Geral da Aplicação {#sec-04.1}**
+## **Fluxo Geral da Aplicação {#sec-04.1}**
 
 A Figura [8](#fig:8.simulatio.flow) apresenta o fluxo completo da execução:
 
@@ -117,9 +118,7 @@ A Figura [8](#fig:8.simulatio.flow) apresenta o fluxo completo da execução:
 <figcaption>Fluxo de execução da simulação.</figcaption>
 </figure>
 
----
-
-## **4.2 Modelagem do Sistema Multiagente {#sec-04.2}**
+## **Modelagem do Sistema Multiagente {#sec-04.2}**
 
 A simulação ocorre em um mapa 2D $N \times M$, composto por patches $p_{x,y}$. O usuário pode configurar geografia, número de unidades, posições iniciais e finais e pontos de controle.
 
@@ -157,7 +156,7 @@ A heurística é a distância Euclidiana até o objetivo.
 
 ---
 
-## **4.3 Modelagem de Estados dos Agentes {#sec-04.1.1}**
+## **Modelagem de Estados dos Agentes {#sec-04.1.1}**
 
 As unidades mudam de cor conforme seu estado:
 **Saudável**, **Ferido**, **Assistência médica urgente**, **Morto**.
@@ -188,294 +187,53 @@ Para um agente *Saudável*:
 
 A identificação correta de aliados é fundamental para evitar **fogo amigo**, discutido na próxima seção.
 
----
+# **APLICAÇÕES DE S2C2**
 
-Se quiser, posso **reduzir ainda mais**, **simplificar a redação**, ou **formatar como texto científico ABNT**.
+Ao longo do projeto foram desenvolvidas diferentes aplicações para avaliar o desempenho do simulador S2C2. Estas aplicações permitem observar como a comunicação, o movimento das unidades e as condições do terreno influenciam o comportamento geral do sistema em cenários operacionais.
 
-# APLICAÇÕES DE S2C2 {#sec-05}
+## **Modelos de Dados da Aplicação**
 
-Para analisar o desempenho do simulador, desenvolveram-se diferentes
-aplicações de S2C2 ao longo do projeto. Estas aplicaçãoes e os
-resultados obtidos a partir das mesmas são discutidas a seguir.
+Para organizar as informações trocadas durante a simulação, o sistema utiliza três conjuntos principais de dados:
 
-## Modelos de Dados da Aplicação {#subsec:3.3}
+* **Mensagens** — registram tentativas e sucessos de comunicação.
+* **Posições** — acompanham o deslocamento das unidades militares.
+* **Colinas** — representam elevações do terreno que podem interferir na comunicação.
 
-Para melhor organizar as informações geradas pela simulação, bem como,
-para facilitar futuras consultas a dados e a execução em tempo real,
-foram criados diferentes conjuntos de dados para a troca de informações
-entre agentes do sistema, simulador e emulador. Estes conjuntos são
-divididos em Mensagens, Posições e Colinas.
-
-- Mensagens: registra tentativas de comunicação e comunicações
-  bem-sucedidas.
-
-- Posições: registra o log da trajetória seguida por cada unidade.
-
-- Colinas: registra a presença de elevações do terreno (colinas) que
-  possam interferir na comunicação entre pares de unidades durante a
-  simulação.
-
-### Posições
-
-O conjunto de dados Posições identifica os agentes individuais do
-sistema multiagentes do simulador, cada um representando uma unidade
-militar. Estes dados são gerados e processados pelo NetLogo para
-questões de deslocamento das unidades, e utilizados pelo Mininet Wi-fi
-para avaliar as chances de sucesso ou falha de comunicações. Os
-seguintes campos compõem o conjunto Posições.
-
-- node: tipo inteiro. Indica o nó ao qual as informações se referem.
-
-- x: tipo float. Indica a coordenada x da unidade referida no nó.
-
-- y: tipo float. Indica a coordenada y da unidade referida no nó.
-
-- tick: tipo inteiro. Indica o momento (em ticks) dos dados.
-
-- round_id: tipo inteiro. Indica o número do ciclo atual.
-
-### Colinas
-
-O conjunto de dados Colinas identifica o nível de transposição de cada
-patch individual do mapa da simulação, sendo um patch uma célula
-individual que pode ser ocupada por um agente. Os dados do conjunto
-impactam tanto o algoritmo de deslocamento dos agentes no NetLogo, como
-o nível de sucesso de entrega do envio de comunicações de rádio entre as
-unidades militares no Mininet Wi-fi. Os seguintes campos compõem o
-conjunto Colinas.
-
-- nodea: tipo inteiro. Indica um dos nós do par analisado.
-
-- nodeb: tipo inteiro. Indica o outro nó do par analisado.
-
-- hill: tipo inteiro. Indica o nível de interferência entre o par de
-  nós.
-
-- tick: tipo inteiro. Indica o momento (em ticks) das informações.
-
-- round_id: tipo inteiro. Indica o número da rodada atual.
-
-## Modelagem de ocorrências de Fogo Amigo {#sec-04.3}
-
-A comunicação é um recurso vital para os soldados. O reconhecimento
-visual permite que as unidades militares, dentro de uma distância reta
-máxima, identifiquem aliados sem depender de comunicações por rede. No
-entanto, além desse limite ou quando na presença de obstáculos visuais,
-o uso de communicação por rede é essencial para identificar unidades
-amigas.
-
-Situações de fogo amigo ocorrem justamente quando uma unidade militar é
-incapaz de identificar outra unidade como aliada e a ataca por engano.
-Para monitorar e evitar esses incidentes, a aplicação desenvolvida
-utiliza um sistema BFT, um tipo de sistema conhecido por empregar
-dispositivos GPS para rastrear e exibir as posições de forças aliadas
-(azuis) no campo de batalha. Esse sistema aprimora a consciência
-situacional e facilita as comunicações de comando e controle entre
-unidades dispersas [@sweeney2008blue; @chevli2006blue].
-
-A eficácia da aplicação BFT depende de uma comunicação de rede robusta
-para identificar aliados com precisão. Interrupções na rede,
-frequentemente causadas por obstáculos no campo de batalha, como
-terrenos elevados, podem gerar dados BFT incompletos ou a total perda da
-informação, assim, aumentando o risco de fogo amigo. Equipes militares
-geralmente preveem esses obstáculos por meio de missões de
-reconhecimento de terreno, característica que reforça a escolha do
-algoritmo A\* para a simulação do movimento das unidades. Para este
-sistema, a aplicação BFT foi construída como um modulo dentro do
-componente *Emulador de Redes*, no caso, o Mininet Wi-fi, sendo acionado
-junto com o início da simulação de acordo com o fluxo do diagrama de
-sequência da Figura [11](#fig:9.diagrama.bft){reference-type="ref"
-reference="fig:9.diagrama.bft"}.
-
-<figure id="fig:9.diagrama.bft" data-latex-placement="ht">
-<p><img src="assets/images/fig9.bft.flow.png" alt="image" /> <span
-id="fig:9.diagrama.bft" data-label="fig:9.diagrama.bft"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Diagrama de sequência da aplicação BFT.</figcaption>
-</figure>
-
-De acordo com o diagrama da aplicação BFT, cada nó $i$, que simula uma
-unidade militar, possui uma aplicação cliente-servidor. A cada tick do
-ambiente de simulação, o nó $i$ recebe uma mensagem do ambiente
-ordenando que avance pelo mapa do cenário. Após receber essa mensagem, o
-cliente do nó $i$ envia uma nova mensagem com seus dados de localização
-para todos o nó $n$ da população de agentes $P$ próximo a ele, assumindo
-que $\exists n \in P | n \neq i \wedge (0 \leq n < P)$. Igualmente, todo
-nó $n$ da aplicação que recebe esta nova mensagem a reencaminha para
-todo nó $m$ próximo a ele, de forma que
-$\exists m \in P | m \neq i \wedge m \neq n \wedge (0 \leq m < P)$.
-
-Em paralelo a isso, todo nó $i$ da simulação que recebe uma mensagem de
-outro nó $k$ qualquer em sua aplicação servidor envia para sua interface
-MQTT os dados de localização recebidos deste nó $k$, junto com seu
-próprio identificador, a informação de data e hora do recebimento dessa
-informação e o identificador do tick atual. Ao final, a interface MQTT
-do nó $i$ devolve para o ambiente da aplicação os dados de localização
-do nó $k$, que utiliza essas informações para atualizar o cenário da
-simulação.
-
-O modelo BFT construído assume que, no início da simulação, os agentes
-aliados compartilham informações mútuas, permitindo a troca de dados
-BFT, que é ilustrada pelas linhas brancas na
-Figura [12](#fig:6.simulation.lines){reference-type="ref"
-reference="fig:6.simulation.lines"}. No entanto, obstáculos no terreno,
-assim como interrupções na rede, podem levar a perda parcial de
-comunicação, de forma que apenas um dos agentes conectados possui dados
-BFT sobre o outro (ilustrado pela linha laranja ligando os agentes em
-questão), ou a perda completa de comunicação (reresentada pela ausência
-de linha conectando os agentes).
-
-<figure id="fig:6.simulation.lines" data-latex-placement="!h!t">
-<p><img src="assets/images/fig6.simulation.link_lines.png" style="width:50.0%"
-alt="image" /> <span id="fig:6.simulation.lines"
-data-label="fig:6.simulation.lines"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Monitoramento de comunicação entre unidades
-aliadas.</figcaption>
-</figure>
-
-Unidades aliadas e inimigas disparam automaticamente contra unidades não
-identificadas dentro de seu campo de visão. Além do campo de visão ---
-em formato de cone --- a precisão do disparo também considera o alcance
-efetivo da arma portada pelo agente. A cada segundo, o MAS escaneia o
-cenário de batalha, iterando sobre os agentes e registrando, para cada
-um, todas as unidades dentro do seu campo de visão que atendem às
-condições de ataque e não se encontram em um estado final da FSM.
-
-Por outro lado, conforme requisitado pelos stakeholders, as unidades
-inimigas seguem um comportamento de ataque simplificado: elas nunca
-causam fogo amigo e sempre disparam contra unidades aliadas dentro do
-seu alcance de precisão.
-
-Isso contrasta com as unidades aliadas, que seguem um processo decisório
-mais complexo, detalhado no diagrama de atividades [@OMG2017] da
-Figura [13](#fig:7.friendly.fire){reference-type="ref"
-reference="fig:7.friendly.fire"}. Esse modelo trata cada agente $a_{i}$
-como um possível atacante direcionado a outros agentes. Contudo, tanto
-unidades inimigas quanto aliadas estão sujeitas a erros de disparo.
-
-<figure id="fig:7.friendly.fire" data-latex-placement="!h!t">
-<p><img src="assets/images/fig7.friendly_fire.png" alt="image" /> <span
-id="fig:7.friendly.fire" data-label="fig:7.friendly.fire"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Fluxo de ataque e fogo amigo entre unidades
-aliadas.</figcaption>
-</figure>
-
-A confirmação de um alvo segue condições específicas --- apresentadas no
-diagrama da Figura [13](#fig:7.friendly.fire){reference-type="ref"
-reference="fig:7.friendly.fire"} e listadas a seguir. Esse processo é
-repetido para cada agente aliado com status válido na simulação,
-considerando todas as combinações possíveis entre agentes atacante e
-alvo, até a conclusão da simulação.
-
-- Atacante e alvo não se encontram em um estado final.
-
-- A distância em linha reta entre o atacante e o alvo está fora da
-  distância de "reconhecimento visual", exigindo o feedback da aplicação
-  BFT para identificação mútua.
-
-- O atacante não recebeu da rede BFT comunicação de retorno do alvo.
-
-- O atacante decidiu atirar e tem o alvo dentro do campo de visão e
-  alcance da arma $(0<d \leq \text{min}(0.8, precisao(atq)))$.
-
-- A unidade atacante respeita um atraso de, pelo menos, 6 segundos entre
-  a visualização do alvo e o disparo. Tempo requisitado pelos
-  stakeholders com base nos tempos médios para a tomada de decisão de
-  disparo por soldados.
-
-- A arma está pronta para disparar, sem restrições em vigor, como o
-  tempo entre os disparos ou necessidade de recarga.
-
-Quando todas as condições são atendidas, o atacante realiza o disparo.
-Se tanto o atacante quanto o alvo forem unidades aliadas,
-independentemente de o tiro acertar, o algoritmo incrementa a contagem
-de "fogo amigo". Caso o alvo seja inimigo, a contagem de "inimigo
-atacado" é aumentada.
-
-## Blue Force Tracking {#subsec:5.3}
-
-Para analisar o desempenho do simulador, conforme descrito na Seção 4.3,
-foi criada a aplicação **Blue Force Tracking (BFT)**. Essa aplicação é
-executada em cada nó controlado pelo **Emulador de Rede**. Em cada nó
-rodam os módulos `Client` e `Server` do BFT, que utilizam a pilha de
-rede isolada do respectivo *namespace* --- ou seja, o conjunto de
-protocolos e interfaces de rede independentes daquele nó --- para se
-comunicarem. Nesta seção, são apresentados os principais componentes do
-BFT, ilustrados na Figura [14](#fig:a.diagrama.bft){reference-type="ref"
-reference="fig:a.diagrama.bft"}.
-
-<figure id="fig:a.diagrama.bft" data-latex-placement="ht">
-<p><img src="assets/images/fig.a.BFT.application.png" alt="image" /> <span
-id="fig:a.diagrama.bft" data-label="fig:a.diagrama.bft"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Diagrama de Componentes da Aplicação Blue Force
-Tracking.</figcaption>
-</figure>
-
-### MQTT Interface
-
-O componente MQTT interface fornece uma interface para a troca de dados
-entre o orquestrador da simulação e a aplicação BFT que executa dentro
-de cada agente simulados do cenário de campo de batalha.
-
-### Client
-
-O componente Client define a interface de envio de dados da aplicação
-através de pacotes UDP.
-
-### Server
-
-O componente Server define a inferface para recebimento de dados da
-aplicação oriundo de outros agentes, pacotes UDP.
-
-### Configuration
-
-O componente Configuration contém informações de configuração da
-aplicação, como o as portas utilizadas pelos componentes Client e
-Server, as portas utilizadas para o MQTT, entre outras configuraçõs de
-rede. Também no componente Configuration é especificado o ttl, um
-inteiro que define o número de vezes que uma mensagem recebida por um
-agente será retransmitida para os demais agentes no seu alcance de
-comunicação. Este parâmetro visa ampliar a área de cobertura do BFT.
-
-### Data
-
-O componente Data define o modelo de dados da aplicação BFT, composto
-por:
-
-- source_ip: endereço de IP de origem;
-
-- receiver_ip: endereço IP de destino;
-
-- tick_sent: inteiro indicando o momento (em ticks) a que as informações
-  se referem.
-
-- position_x: float indicando a coordenada $x$ do agente.
-
-- position_y: float indicando a coordenada $y$ do agente.
-
-O diagrama representado na Figura [15](#fig:b.bft){reference-type="ref"
-reference="fig:b.bft"} apresenta a comunicação da aplicação BFT com o
-simulador S2C2 através das interfaces AppController e IDatabase, também
-representadas na
-Figura [1](#fig:1.arquitetura.s2c2){reference-type="ref"
-reference="fig:1.arquitetura.s2c2"}.
-
-<figure id="fig:b.bft" data-latex-placement="ht">
-<p><img src="assets/images/fig.b.BFT.Database.Report.png" alt="image" /> <span
-id="fig:b.bft" data-label="fig:b.bft"></span></p>
-<p>Fonte: os autores.</p>
-<figcaption>Interação do BFT com Simulador S2C2.</figcaption>
-</figure>
-
-Durante a simulação, a aplicação BFT troca mensagens de controle com o
-orquestrador da simulação, o EmuSim, e armazena as mensagems trocadas no
-banco de dados através da interface IDataBase. No final da simulação, a
-aplicação BFT gera um relatório contendo as estatísticas de fogo amigo
-do cenário de simulação executado, de modo a validar o impacto das
-alterações no cenário de simulação no contexto do fogo amigo.
+Esses dados são usados pelo simulador e pelo emulador para calcular deslocamentos, avaliar conectividade e determinar impactos do terreno.
+
+## **Modelagem de Ocorrências de Fogo Amigo**
+
+A simulação também inclui um modelo para analisar situações de **fogo amigo**, isto é, quando unidades aliadas atacam outras unidades amigas por falha de identificação.
+Quando a identificação visual não é suficiente, as unidades dependem das informações fornecidas pelo **sistema BFT (Blue Force Tracking)**.
+
+A troca de dados BFT entre as unidades é afetada por obstáculos, distância e qualidade da rede. Quando essas informações chegam de forma parcial ou não chegam, aumenta-se o risco de engano. A Figura abaixo ilustra a visualização dessas conexões durante a simulação.
+
+*Monitoramento da comunicação entre unidades aliadas*
+![fig](assets/images/fig6.simulation.link_lines.png)
+
+O modelo inclui regras gerais para determinar quando uma unidade decide atacar e como ocorre a classificação de cada disparo como “inimigo atingido” ou “fogo amigo”.
+
+## **Blue Force Tracking (BFT)**
+
+Para analisar mais profundamente os impactos na identificação entre unidades aliadas, foi criada uma aplicação BFT executada diretamente em cada nó do Emulador de Redes.
+A aplicação opera de forma distribuída, enviando e recebendo informações de localização entre as unidades e repassando esses dados ao simulador para atualizar o cenário.
+
+O BFT é composto por módulos responsáveis por:
+
+* **Troca de dados com o simulador (via MQTT)**
+* **Envio e recebimento de mensagens entre unidades**
+* **Configuração da aplicação (como portas e parâmetros de retransmissão)**
+* **Registro dos dados transmitidos**
+
+A arquitetura geral e a interação com o simulador são mostradas nas figuras abaixo:
+
+*Componentes do BFT*
+![fig](assets/images/fig.a.BFT.application.png)
+
+*Interação do BFT com o Simulador*
+![fig](assets/images/fig.b.BFT.Database.Report.png)
+
+Ao final da simulação, o BFT gera um relatório com estatísticas de fogo amigo, permitindo avaliar o impacto das condições de comunicação e do terreno no desempenho das unidades aliadas.
 
 # CENÁRIOS DE TESTES E RESULTADOS {#sec-06}
 
