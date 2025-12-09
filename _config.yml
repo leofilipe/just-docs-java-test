@@ -14,3 +14,28 @@ baseurl: "/just-docs-java-test"
 # CSS customizado
 just_the_docs:
   css: "assets/css/custom.css"
+  
+ nav:
+  - title: "INTRODUÇÃO"
+    url: "{{ site.baseurl }}/#sec-01"
+
+  - title: "VISÃO ARQUITETURAL"
+    url: "{{ site.baseurl }}/#sec-02"
+
+  - title: "MODELAGEM DO SISTEMA"
+    url: "{{ site.baseurl }}/#sec-03"
+  
+  - title: "MODELOS DE FLUXO DO SISTEMA"
+    url: "{{ site.baseurl }}/#sec-04"
+    
+  - title: "APLICAÇÕES DE S2C2"
+    url: "{{ site.baseurl }}/#sec-05"
+    
+  - title: "CENÁRIOS DE TESTES E RESULTADOS"
+    url: "{{ site.baseurl }}/#sec-06"
+    
+  - title: "PUBLICAÇÕES GERADAS"
+    url: "{{ site.baseurl }}/#sec-07"
+    
+  - title: "CONSIDERAÇÕES FINAIS"
+    url: "{{ site.baseurl }}/#sec-08"
